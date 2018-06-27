@@ -1,5 +1,5 @@
 package com.cpyt.entity;
-// Generated 27/06/2018 03:08:19 AM by Hibernate Tools 4.3.1
+// Generated 27/06/2018 04:50:00 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -27,6 +27,7 @@ public class Denuncia  implements java.io.Serializable {
      private String descripcion;
      private Set servicioPolicials = new HashSet(0);
      private Set personaDenuncias = new HashSet(0);
+     private Set<PersonaDenuncia> personaDenunciaList;
 
     public Denuncia() {
     }
@@ -165,7 +166,15 @@ public class Denuncia  implements java.io.Serializable {
         this.personaDenuncias = personaDenuncias;
     }
 
+    public Set<PersonaDenuncia> getPersonaDenunciaList() {
+        return personaDenunciaList;
+    }
 
+    public void setPersonaDenunciaList(Set<PersonaDenuncia> personaDenunciaList) {
+        this.personaDenunciaList = personaDenunciaList;
+    }
+
+    
 
 
 }

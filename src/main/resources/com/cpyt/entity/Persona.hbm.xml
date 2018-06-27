@@ -1,16 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 27/06/2018 03:08:20 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated 27/06/2018 04:50:01 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.cpyt.entity.Persona" table="persona" catalog="policia" optimistic-lock="version">
         <id name="idPerso" type="java.lang.Integer">
             <column name="id_perso" />
-            <generator class="foreign">
-                <param name="property">personaDenuncia</param>
-            </generator>
+            <generator class="identity" />
         </id>
-        <one-to-one name="personaDenuncia" class="com.cpyt.entity.PersonaDenuncia" constrained="true"></one-to-one>
         <property name="dni" type="string">
             <column name="dni" length="8" not-null="true" />
         </property>
@@ -24,7 +21,7 @@
             <column name="direccion" length="250" not-null="true" />
         </property>
         <property name="nivelGrado" type="string">
-            <column name="nivel_grado" length="250" not-null="true" />
+            <column name="nivel_grado" length="250" />
         </property>
         <property name="ocupacion" type="string">
             <column name="ocupacion" length="250" not-null="true" />
@@ -38,6 +35,12 @@
         <property name="tipoPerso" type="string">
             <column name="tipo_perso" length="100" not-null="true" />
         </property>
+        <set name="personaDenuncias" table="persona_denuncia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_perso" not-null="true" />
+            </key>
+            <one-to-many class="com.cpyt.entity.PersonaDenuncia" />
+        </set>
         <set name="servicioPolicials" table="servicio_policial" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_perso" not-null="true" />

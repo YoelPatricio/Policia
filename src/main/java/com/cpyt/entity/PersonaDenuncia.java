@@ -1,5 +1,5 @@
 package com.cpyt.entity;
-// Generated 27/06/2018 03:08:19 AM by Hibernate Tools 4.3.1
+// Generated 27/06/2018 04:50:00 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -14,28 +14,26 @@ public class PersonaDenuncia  implements java.io.Serializable {
      private Integer idPerden;
      private Denuncia denuncia;
      private Operativo operativo;
-     private int idPerso;
+     private Persona persona;
      private String situacion;
      private String estado;
-     private Persona persona;
      private Set personaProcesos = new HashSet(0);
 
     public PersonaDenuncia() {
     }
 
 	
-    public PersonaDenuncia(int idPerso, String situacion, String estado) {
-        this.idPerso = idPerso;
+    public PersonaDenuncia(Persona persona, String situacion, String estado) {
+        this.persona = persona;
         this.situacion = situacion;
         this.estado = estado;
     }
-    public PersonaDenuncia(Denuncia denuncia, Operativo operativo, int idPerso, String situacion, String estado, Persona persona, Set personaProcesos) {
+    public PersonaDenuncia(Denuncia denuncia, Operativo operativo, Persona persona, String situacion, String estado, Set personaProcesos) {
        this.denuncia = denuncia;
        this.operativo = operativo;
-       this.idPerso = idPerso;
+       this.persona = persona;
        this.situacion = situacion;
        this.estado = estado;
-       this.persona = persona;
        this.personaProcesos = personaProcesos;
     }
    
@@ -60,12 +58,12 @@ public class PersonaDenuncia  implements java.io.Serializable {
     public void setOperativo(Operativo operativo) {
         this.operativo = operativo;
     }
-    public int getIdPerso() {
-        return this.idPerso;
+    public Persona getPersona() {
+        return this.persona;
     }
     
-    public void setIdPerso(int idPerso) {
-        this.idPerso = idPerso;
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
     public String getSituacion() {
         return this.situacion;
@@ -80,13 +78,6 @@ public class PersonaDenuncia  implements java.io.Serializable {
     
     public void setEstado(String estado) {
         this.estado = estado;
-    }
-    public Persona getPersona() {
-        return this.persona;
-    }
-    
-    public void setPersona(Persona persona) {
-        this.persona = persona;
     }
     public Set getPersonaProcesos() {
         return this.personaProcesos;

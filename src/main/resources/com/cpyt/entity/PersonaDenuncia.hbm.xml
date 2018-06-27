@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 27/06/2018 03:08:20 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated 27/06/2018 04:50:01 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.cpyt.entity.PersonaDenuncia" table="persona_denuncia" catalog="policia" optimistic-lock="version">
         <id name="idPerden" type="java.lang.Integer">
@@ -14,16 +14,15 @@
         <many-to-one name="operativo" class="com.cpyt.entity.Operativo" fetch="select">
             <column name="id_opera" />
         </many-to-one>
-        <property name="idPerso" type="int">
+        <many-to-one name="persona" class="com.cpyt.entity.Persona" fetch="select">
             <column name="id_perso" not-null="true" />
-        </property>
+        </many-to-one>
         <property name="situacion" type="string">
-            <column name="situacion" length="50" not-null="true" />
+            <column name="situacion" length="50" />
         </property>
         <property name="estado" type="string">
-            <column name="estado" length="50" not-null="true" />
+            <column name="estado" length="50"/>
         </property>
-        <one-to-one name="persona" class="com.cpyt.entity.Persona"></one-to-one>
         <set name="personaProcesos" table="persona_proceso" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_perden" not-null="true" />

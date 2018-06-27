@@ -1,5 +1,5 @@
 package com.cpyt.entity;
-// Generated 27/06/2018 03:08:19 AM by Hibernate Tools 4.3.1
+// Generated 27/06/2018 04:50:00 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;

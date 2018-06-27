@@ -1,5 +1,5 @@
 package com.cpyt.entity;
-// Generated 27/06/2018 03:08:19 AM by Hibernate Tools 4.3.1
+// Generated 27/06/2018 04:50:00 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -13,7 +13,6 @@ public class Persona  implements java.io.Serializable {
 
 
      private Integer idPerso;
-     private PersonaDenuncia personaDenuncia;
      private String dni;
      private String apelNomb;
      private String celular;
@@ -23,6 +22,7 @@ public class Persona  implements java.io.Serializable {
      private Date fechNaci;
      private int edad;
      private String tipoPerso;
+     private Set personaDenuncias = new HashSet(0);
      private Set servicioPolicials = new HashSet(0);
      private Set usuarios = new HashSet(0);
 
@@ -30,20 +30,17 @@ public class Persona  implements java.io.Serializable {
     }
 
 	
-    public Persona(PersonaDenuncia personaDenuncia, String dni, String apelNomb, String celular, String direccion, String nivelGrado, String ocupacion, Date fechNaci, int edad, String tipoPerso) {
-        this.personaDenuncia = personaDenuncia;
+    public Persona(String dni, String apelNomb, String celular, String direccion, String ocupacion, Date fechNaci, int edad, String tipoPerso) {
         this.dni = dni;
         this.apelNomb = apelNomb;
         this.celular = celular;
         this.direccion = direccion;
-        this.nivelGrado = nivelGrado;
         this.ocupacion = ocupacion;
         this.fechNaci = fechNaci;
         this.edad = edad;
         this.tipoPerso = tipoPerso;
     }
-    public Persona(PersonaDenuncia personaDenuncia, String dni, String apelNomb, String celular, String direccion, String nivelGrado, String ocupacion, Date fechNaci, int edad, String tipoPerso, Set servicioPolicials, Set usuarios) {
-       this.personaDenuncia = personaDenuncia;
+    public Persona(String dni, String apelNomb, String celular, String direccion, String nivelGrado, String ocupacion, Date fechNaci, int edad, String tipoPerso, Set personaDenuncias, Set servicioPolicials, Set usuarios) {
        this.dni = dni;
        this.apelNomb = apelNomb;
        this.celular = celular;
@@ -53,6 +50,7 @@ public class Persona  implements java.io.Serializable {
        this.fechNaci = fechNaci;
        this.edad = edad;
        this.tipoPerso = tipoPerso;
+       this.personaDenuncias = personaDenuncias;
        this.servicioPolicials = servicioPolicials;
        this.usuarios = usuarios;
     }
@@ -63,13 +61,6 @@ public class Persona  implements java.io.Serializable {
     
     public void setIdPerso(Integer idPerso) {
         this.idPerso = idPerso;
-    }
-    public PersonaDenuncia getPersonaDenuncia() {
-        return this.personaDenuncia;
-    }
-    
-    public void setPersonaDenuncia(PersonaDenuncia personaDenuncia) {
-        this.personaDenuncia = personaDenuncia;
     }
     public String getDni() {
         return this.dni;
@@ -133,6 +124,13 @@ public class Persona  implements java.io.Serializable {
     
     public void setTipoPerso(String tipoPerso) {
         this.tipoPerso = tipoPerso;
+    }
+    public Set getPersonaDenuncias() {
+        return this.personaDenuncias;
+    }
+    
+    public void setPersonaDenuncias(Set personaDenuncias) {
+        this.personaDenuncias = personaDenuncias;
     }
     public Set getServicioPolicials() {
         return this.servicioPolicials;

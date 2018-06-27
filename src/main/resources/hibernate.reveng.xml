@@ -41,25 +41,4 @@ Contributor(s):
 -->
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="policia"/>
-  <table-filter match-name="otro"/>
-  <table-filter match-name="servicio_policial"/>
-  <table-filter match-name="droga"/>
-  <table-filter match-name="usuario"/>
-  <table-filter match-name="modalidad"/>
-  <table-filter match-name="vehiculo_incautado"/>
-  <table-filter match-name="subtipo_delito"/>
-  <table-filter match-name="arma"/>
-  <table-filter match-name="perfil"/>
-  <table-filter match-name="vehiculo"/>
-  <table-filter match-name="denuncia"/>
-  <table-filter match-name="arma_incautada"/>
-  <table-filter match-name="delito"/>
-  <table-filter match-name="papeleta"/>
-  <table-filter match-name="tipo_delito"/>
-  <table-filter match-name="operativo"/>
-  <table-filter match-name="persona_denuncia"/>
-  <table-filter match-name="persona_proceso"/>
-  <table-filter match-name="subdetalle_delito"/>
-  <table-filter match-name="municion"/>
-  <table-filter match-name="persona"/>
 </hibernate-reverse-engineering>
