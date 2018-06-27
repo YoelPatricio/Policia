@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27/06/2018 03:08:20 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.cpyt.entity.PersonaProceso" table="persona_proceso" catalog="policia" optimistic-lock="version">
+        <id name="idPerpro" type="java.lang.Integer">
+            <column name="id_perpro" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="personaDenuncia" class="com.cpyt.entity.PersonaDenuncia" fetch="select">
+            <column name="id_perden" not-null="true" />
+        </many-to-one>
+        <property name="fiscal" type="string">
+            <column name="fiscal" length="200" not-null="true" />
+        </property>
+        <property name="sentencia" type="string">
+            <column name="sentencia" length="100" not-null="true" />
+        </property>
+        <property name="tiempo" type="string">
+            <column name="tiempo" length="100" not-null="true" />
+        </property>
+        <property name="NTiempo" type="int">
+            <column name="n_tiempo" not-null="true" />
+        </property>
+        <property name="fechPro" type="date">
+            <column name="fech_pro" length="10" not-null="true" />
+        </property>
+        <property name="horaPro" type="string">
+            <column name="hora_pro" length="20" not-null="true" />
+        </property>
+        <property name="fechaLibe" type="date">
+            <column name="fecha_libe" length="10" not-null="true" />
+        </property>
+        <property name="horaLibe" type="string">
+            <column name="hora_libe" length="20" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

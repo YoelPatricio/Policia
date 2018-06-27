@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27/06/2018 03:08:20 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.cpyt.entity.VehiculoIncautado" table="vehiculo_incautado" catalog="policia" optimistic-lock="version">
+        <id name="idVehincau" type="java.lang.Integer">
+            <column name="id_vehincau" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="operativo" class="com.cpyt.entity.Operativo" fetch="select">
+            <column name="id_opera" not-null="true" />
+        </many-to-one>
+        <many-to-one name="vehiculo" class="com.cpyt.entity.Vehiculo" fetch="select">
+            <column name="id_vehi" not-null="true" />
+        </many-to-one>
+        <property name="placa" type="string">
+            <column name="placa" length="10" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="500" not-null="true" />
+        </property>
+        <property name="estado" type="string">
+            <column name="estado" length="50" not-null="true" />
+        </property>
+        <set name="papeletas" table="papeleta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_vehincau" not-null="true" />
+            </key>
+            <one-to-many class="com.cpyt.entity.Papeleta" />
+        </set>
+    </class>
+</hibernate-mapping>

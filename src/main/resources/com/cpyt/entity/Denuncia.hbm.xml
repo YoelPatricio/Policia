@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27/06/2018 03:08:20 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.cpyt.entity.Denuncia" table="denuncia" catalog="policia" optimistic-lock="version">
+        <id name="idDenun" type="java.lang.Integer">
+            <column name="id_denun" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="delito" class="com.cpyt.entity.Delito" fetch="select">
+            <column name="id_deli" not-null="true" />
+        </many-to-one>
+        <many-to-one name="modalidad" class="com.cpyt.entity.Modalidad" fetch="select">
+            <column name="id_moda" />
+        </many-to-one>
+        <many-to-one name="subdetalleDelito" class="com.cpyt.entity.SubdetalleDelito" fetch="select">
+            <column name="id_sddelito" />
+        </many-to-one>
+        <many-to-one name="subtipoDelito" class="com.cpyt.entity.SubtipoDelito" fetch="select">
+            <column name="id_stdelito" />
+        </many-to-one>
+        <many-to-one name="tipoDelito" class="com.cpyt.entity.TipoDelito" fetch="select">
+            <column name="id_tdelito" />
+        </many-to-one>
+        <property name="fechRegis" type="date">
+            <column name="fech_regis" length="10" not-null="true" />
+        </property>
+        <property name="horaRegis" type="string">
+            <column name="hora_regis" length="20" not-null="true" />
+        </property>
+        <property name="fechHecho" type="date">
+            <column name="fech_hecho" length="10" not-null="true" />
+        </property>
+        <property name="horaHecho" type="string">
+            <column name="hora_hecho" length="20" not-null="true" />
+        </property>
+        <property name="afectado" type="string">
+            <column name="afectado" length="50" not-null="true" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="direccion" length="250" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="2000" not-null="true" />
+        </property>
+        <set name="servicioPolicials" table="servicio_policial" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_denun" not-null="true" />
+            </key>
+            <one-to-many class="com.cpyt.entity.ServicioPolicial" />
+        </set>
+        <set name="personaDenuncias" table="persona_denuncia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_denun" />
+            </key>
+            <one-to-many class="com.cpyt.entity.PersonaDenuncia" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27/06/2018 03:08:20 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.cpyt.entity.Operativo" table="operativo" catalog="policia" optimistic-lock="version">
+        <id name="idOpera" type="java.lang.Integer">
+            <column name="id_opera" />
+            <generator class="identity" />
+        </id>
+        <property name="tipoOpera" type="string">
+            <column name="tipo_opera" length="100" not-null="true" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="direccion" length="250" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="2000" not-null="true" />
+        </property>
+        <property name="fechRegis" type="date">
+            <column name="fech_regis" length="10" not-null="true" />
+        </property>
+        <property name="horaRegis" type="string">
+            <column name="hora_regis" length="20" not-null="true" />
+        </property>
+        <property name="fechHecho" type="date">
+            <column name="fech_hecho" length="10" not-null="true" />
+        </property>
+        <property name="horaHecho" type="string">
+            <column name="hora_hecho" length="20" not-null="true" />
+        </property>
+        <set name="personaDenuncias" table="persona_denuncia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_opera" />
+            </key>
+            <one-to-many class="com.cpyt.entity.PersonaDenuncia" />
+        </set>
+        <set name="armaIncautadas" table="arma_incautada" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_opera" not-null="true" />
+            </key>
+            <one-to-many class="com.cpyt.entity.ArmaIncautada" />
+        </set>
+        <set name="otros" table="otro" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_opera" not-null="true" />
+            </key>
+            <one-to-many class="com.cpyt.entity.Otro" />
+        </set>
+        <set name="drogas" table="droga" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_opera" not-null="true" />
+            </key>
+            <one-to-many class="com.cpyt.entity.Droga" />
+        </set>
+        <set name="municions" table="municion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_opera" not-null="true" />
+            </key>
+            <one-to-many class="com.cpyt.entity.Municion" />
+        </set>
+        <set name="vehiculoIncautados" table="vehiculo_incautado" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_opera" not-null="true" />
+            </key>
+            <one-to-many class="com.cpyt.entity.VehiculoIncautado" />
+        </set>
+    </class>
+</hibernate-mapping>

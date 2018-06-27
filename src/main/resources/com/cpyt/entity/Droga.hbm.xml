@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27/06/2018 03:08:20 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.cpyt.entity.Droga" table="droga" catalog="policia" optimistic-lock="version">
+        <id name="idDroga" type="java.lang.Integer">
+            <column name="id_droga" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="operativo" class="com.cpyt.entity.Operativo" fetch="select">
+            <column name="id_opera" not-null="true" />
+        </many-to-one>
+        <property name="tipoDroga" type="string">
+            <column name="tipo_droga" length="100" not-null="true" />
+        </property>
+        <property name="kgDroga" type="int">
+            <column name="kg_droga" not-null="true" />
+        </property>
+        <property name="quetesDroga" type="int">
+            <column name="quetes_droga" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="250" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

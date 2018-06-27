@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27/06/2018 03:08:20 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.cpyt.entity.ServicioPolicial" table="servicio_policial" catalog="policia" optimistic-lock="version">
+        <id name="idSerpo" type="java.lang.Integer">
+            <column name="id_serpo" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="denuncia" class="com.cpyt.entity.Denuncia" fetch="select">
+            <column name="id_denun" not-null="true" />
+        </many-to-one>
+        <many-to-one name="persona" class="com.cpyt.entity.Persona" fetch="select">
+            <column name="id_perso" not-null="true" />
+        </many-to-one>
+        <many-to-one name="usuario" class="com.cpyt.entity.Usuario" fetch="select">
+            <column name="id_usua" not-null="true" />
+        </many-to-one>
+        <property name="condicion" type="string">
+            <column name="condicion" length="50" not-null="true" />
+        </property>
+        <property name="costo" type="long">
+            <column name="costo" precision="10" scale="0" not-null="true" />
+        </property>
+        <property name="numBoucher" type="string">
+            <column name="num_boucher" length="50" not-null="true" />
+        </property>
+        <property name="fechSoli" type="date">
+            <column name="fech_soli" length="10" not-null="true" />
+        </property>
+        <property name="horaSoli" type="string">
+            <column name="hora_soli" length="20" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

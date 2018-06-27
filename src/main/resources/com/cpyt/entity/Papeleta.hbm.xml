@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27/06/2018 03:08:20 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.cpyt.entity.Papeleta" table="papeleta" catalog="policia" optimistic-lock="version">
+        <id name="idPape" type="java.lang.Integer">
+            <column name="id_pape" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="vehiculoIncautado" class="com.cpyt.entity.VehiculoIncautado" fetch="select">
+            <column name="id_vehincau" not-null="true" />
+        </many-to-one>
+        <property name="tipoPape" type="string">
+            <column name="tipo_pape" length="100" not-null="true" />
+        </property>
+        <property name="stipoPape" type="string">
+            <column name="stipo_pape" length="100" not-null="true" />
+        </property>
+        <property name="monto" type="long">
+            <column name="monto" precision="10" scale="0" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

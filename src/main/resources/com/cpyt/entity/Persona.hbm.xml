@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27/06/2018 03:08:20 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.cpyt.entity.Persona" table="persona" catalog="policia" optimistic-lock="version">
+        <id name="idPerso" type="java.lang.Integer">
+            <column name="id_perso" />
+            <generator class="foreign">
+                <param name="property">personaDenuncia</param>
+            </generator>
+        </id>
+        <one-to-one name="personaDenuncia" class="com.cpyt.entity.PersonaDenuncia" constrained="true"></one-to-one>
+        <property name="dni" type="string">
+            <column name="dni" length="8" not-null="true" />
+        </property>
+        <property name="apelNomb" type="string">
+            <column name="apel_nomb" length="250" not-null="true" />
+        </property>
+        <property name="celular" type="string">
+            <column name="celular" length="9" not-null="true" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="direccion" length="250" not-null="true" />
+        </property>
+        <property name="nivelGrado" type="string">
+            <column name="nivel_grado" length="250" not-null="true" />
+        </property>
+        <property name="ocupacion" type="string">
+            <column name="ocupacion" length="250" not-null="true" />
+        </property>
+        <property name="fechNaci" type="date">
+            <column name="fech_naci" length="10" not-null="true" />
+        </property>
+        <property name="edad" type="int">
+            <column name="edad" not-null="true" />
+        </property>
+        <property name="tipoPerso" type="string">
+            <column name="tipo_perso" length="100" not-null="true" />
+        </property>
+        <set name="servicioPolicials" table="servicio_policial" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_perso" not-null="true" />
+            </key>
+            <one-to-many class="com.cpyt.entity.ServicioPolicial" />
+        </set>
+        <set name="usuarios" table="usuario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_perso" not-null="true" />
+            </key>
+            <one-to-many class="com.cpyt.entity.Usuario" />
+        </set>
+    </class>
+</hibernate-mapping>

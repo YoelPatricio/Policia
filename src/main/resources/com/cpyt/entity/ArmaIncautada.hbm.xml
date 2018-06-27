@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27/06/2018 03:08:20 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.cpyt.entity.ArmaIncautada" table="arma_incautada" catalog="policia" optimistic-lock="version">
+        <id name="idArmaincau" type="java.lang.Integer">
+            <column name="id_armaincau" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="arma" class="com.cpyt.entity.Arma" fetch="select">
+            <column name="id_arma" not-null="true" />
+        </many-to-one>
+        <many-to-one name="operativo" class="com.cpyt.entity.Operativo" fetch="select">
+            <column name="id_opera" not-null="true" />
+        </many-to-one>
+        <property name="serie" type="string">
+            <column name="serie" length="50" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="500" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

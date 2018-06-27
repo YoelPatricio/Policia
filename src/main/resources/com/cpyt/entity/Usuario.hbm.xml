@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27/06/2018 03:08:20 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.cpyt.entity.Usuario" table="usuario" catalog="policia" optimistic-lock="version">
+        <id name="idUsua" type="java.lang.Integer">
+            <column name="id_usua" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="perfil" class="com.cpyt.entity.Perfil" fetch="select">
+            <column name="id_perfil" not-null="true" />
+        </many-to-one>
+        <many-to-one name="persona" class="com.cpyt.entity.Persona" fetch="select">
+            <column name="id_perso" not-null="true" />
+        </many-to-one>
+        <property name="usuario" type="string">
+            <column name="usuario" length="50" not-null="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="50" not-null="true" />
+        </property>
+        <set name="servicioPolicials" table="servicio_policial" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_usua" not-null="true" />
+            </key>
+            <one-to-many class="com.cpyt.entity.ServicioPolicial" />
+        </set>
+    </class>
+</hibernate-mapping>
