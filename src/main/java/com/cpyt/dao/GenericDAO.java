@@ -7,8 +7,10 @@ import com.cpyt.entity.Delito;
 import com.cpyt.entity.Denuncia;
 import com.cpyt.entity.Persona;
 import com.cpyt.entity.PersonaDenuncia;
+import com.cpyt.entity.ServicioPolicial;
 import com.cpyt.entity.SubtipoDelito;
 import com.cpyt.entity.TipoDelito;
+import com.cpyt.entity.Usuario;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -121,6 +123,7 @@ public class GenericDAO {
     public static void main(String[] args) {
         GenericDAO g = new GenericDAO();
         
+        /* INSERT PARA PROCESO DE DENUNCIA
         Denuncia den = new Denuncia();
         
         Delito de = new Delito();
@@ -152,89 +155,37 @@ public class GenericDAO {
         Persona p4 = new Persona();
         p4.setIdPerso(4);
         
-        
         HashSet<PersonaDenuncia> pd = new HashSet<PersonaDenuncia>();
         pd.add(new PersonaDenuncia(p1, "DENUNCIANTE Y VICTIMA", ""));
         pd.add(new PersonaDenuncia(p3, "REDACTOR", ""));
         pd.add(new PersonaDenuncia(p4, "DENUNCIADO", "DETENIDO"));
-        
         den.setPersonaDenunciaList(pd);
-    
-        
-       
         
         g.insert(den);
-        /*Rol r=new Rol(11,"Cajero2", "Encargado de cobrar", 0);
-        GenericDAO g = new GenericDAO();
+        */
         
+        ServicioPolicial sp = new ServicioPolicial();
         
-        HashSet<Permiso> permisos = new HashSet<Permiso>();
-        permisos.add(new Permiso(11));
-        permisos.add(new Permiso(22));
-        permisos.add(new Permiso(33));
-        r.setPermiso(permisos);
+        Denuncia d = new Denuncia();
+        d.setIdDenun(1);
         
-        g.update(r);
+        Persona p = new Persona();
+        p.setIdPerso(1);
         
-        GenericDAO g = new GenericDAO();
-        Empleado e=new Empleado();
-        Rol r= new Rol();
-        r.setIdRol(15);
-        e.setRol(r);
-        e.setDniEmp("41246543");
-        e.setNombEmp("Leonardo Patricio");
-        e.setCeluEmp("98745632");
-        e.setDireEmp("Av. Aviacion");
-        
-        g.insert(e);
-        GenericDAO g = new GenericDAO();
-        //g.delete("ruta", "id_rut", 13);
-        Boleto b=new Boleto();
-        b.setIdBol(0);
-        
-        Programacion p = new Programacion();
-        p.setIdPro(1);
-        
-        b.setProgramacion(p);
-        
-        Ruta ru = new Ruta();
-        ru.setIdRut(1);
-        
-        b.setRuta(ru);
-                
         Usuario u = new Usuario();
-        u.setIdUsu(1);
+        u.setIdUsua(1);
+        sp.setDenuncia(d);
+        sp.setPersona(p);
+        sp.setUsuario(u);
+        sp.setCondicion("PAGADO");
+        sp.setCosto(25L);
+        sp.setNumBoucher("241546564");
+        sp.setFechSoli(new Date());
+        sp.setHoraSoli("12:58");
         
-        b.setUsuario(u);
-        
-        b.setRucEmpr("");
-        b.setNombEmpr("");
-        b.setDniCli("12345678");
-        b.setNombCli("Jose Jose");
-        b.setPrecBol(new BigDecimal("15.00"));
-        b.setAcarBol(new BigDecimal("15.00"));
-        b.setTotaBol(new BigDecimal("30.00"));
-        b.setFcomBol(new Date());
-        
-        g.insert(b);*/
+        g.insert(sp);
         
         
-        /*
-        Programacion p = new Programacion();
-        p.setIdPro(1);
-        Ruta r=new Ruta();
-        r.setIdRut(1);
-        Encomienda e=new Encomienda(p, r, new Date(), "77229104", "Yoel", "74171474", "Claudia", new BigDecimal("10.00"), 0);
-        GenericDAO g = new GenericDAO();
         
-        List<Encomiendadetalle> detalleList=new ArrayList<Encomiendadetalle>();
-        
-        HashSet<Encomiendadetalle> enc = new HashSet<Encomiendadetalle>();
-        enc.add(new Encomiendadetalle("CAJA",new BigDecimal("15.5")));
-        enc.add(new Encomiendadetalle("CAJA", new BigDecimal("20.5")));
-        
-        e.setDetalle(enc);
-        
-        g.insert(e);*/
     }
 }

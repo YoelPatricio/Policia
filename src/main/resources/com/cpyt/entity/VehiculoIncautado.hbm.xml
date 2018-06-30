@@ -29,5 +29,11 @@
             </key>
             <one-to-many class="com.cpyt.entity.Papeleta" />
         </set>
+        <set name="papeletaList" cascade="all">
+            <key>
+                <column name="id_vehincau" />
+            </key>
+            <one-to-many class="com.cpyt.entity.Papeleta" />
+        </set>
     </class>
 </hibernate-mapping>

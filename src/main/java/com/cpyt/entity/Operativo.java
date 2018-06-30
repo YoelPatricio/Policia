@@ -26,7 +26,16 @@ public class Operativo  implements java.io.Serializable {
      private Set drogas = new HashSet(0);
      private Set municions = new HashSet(0);
      private Set vehiculoIncautados = new HashSet(0);
-
+     
+     private Set<PersonaDenuncia> personaDenunciaList;
+     private Set<ArmaIncautada> armaIncautadaList;
+     private Set<Otro> otroList;
+     private Set<Droga> drogaList;
+     private Set<Municion> municionList;
+     private Set<VehiculoIncautado> vehiculoIncautadoList;
+     
+     
+     
     public Operativo() {
     }
 
@@ -155,7 +164,55 @@ public class Operativo  implements java.io.Serializable {
         this.vehiculoIncautados = vehiculoIncautados;
     }
 
+    public Set<PersonaDenuncia> getPersonaDenunciaList() {
+        return personaDenunciaList;
+    }
 
+    public void setPersonaDenunciaList(Set<PersonaDenuncia> personaDenunciaList) {
+        this.personaDenunciaList = personaDenunciaList;
+    }
+
+    public Set<ArmaIncautada> getArmaIncautadaList() {
+        return armaIncautadaList;
+    }
+
+    public void setArmaIncautadaList(Set<ArmaIncautada> armaIncautadaList) {
+        this.armaIncautadaList = armaIncautadaList;
+    }
+
+    public Set<Otro> getOtroList() {
+        return otroList;
+    }
+
+    public void setOtroList(Set<Otro> otroList) {
+        this.otroList = otroList;
+    }
+
+    public Set<Droga> getDrogaList() {
+        return drogaList;
+    }
+
+    public void setDrogaList(Set<Droga> drogaList) {
+        this.drogaList = drogaList;
+    }
+
+    public Set<Municion> getMunicionList() {
+        return municionList;
+    }
+
+    public void setMunicionList(Set<Municion> municionList) {
+        this.municionList = municionList;
+    }
+
+    public Set<VehiculoIncautado> getVehiculoIncautadoList() {
+        return vehiculoIncautadoList;
+    }
+
+    public void setVehiculoIncautadoList(Set<VehiculoIncautado> vehiculoIncautadoList) {
+        this.vehiculoIncautadoList = vehiculoIncautadoList;
+    }
+
+    
 
 
 }

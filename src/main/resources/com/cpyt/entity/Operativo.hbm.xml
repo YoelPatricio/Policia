@@ -65,5 +65,42 @@
             </key>
             <one-to-many class="com.cpyt.entity.VehiculoIncautado" />
         </set>
+        <set name="personaDenunciaList" cascade="all">
+            <key>
+                <column name="id_opera" />
+            </key>
+            <one-to-many class="com.cpyt.entity.PersonaDenuncia" />
+        </set>
+        <set name="armaIncautadaList" cascade="all">
+            <key>
+                <column name="id_opera" />
+            </key>
+            <one-to-many class="com.cpyt.entity.ArmaIncautada" />
+        </set>
+        <set name="otroList" cascade="all">
+            <key>
+                <column name="id_opera" />
+            </key>
+            <one-to-many class="com.cpyt.entity.Otro" />
+        </set>
+        <set name="drogaList" cascade="all">
+            <key>
+                <column name="id_opera" />
+            </key>
+            <one-to-many class="com.cpyt.entity.Droga" />
+        </set>
+        <set name="municionList" cascade="all">
+            <key>
+                <column name="id_opera" />
+            </key>
+            <one-to-many class="com.cpyt.entity.Municion" />
+        </set>
+        <set name="vehiculoIncautadoList" cascade="all">
+            <key>
+                <column name="id_opera" />
+            </key>
+            <one-to-many class="com.cpyt.entity.VehiculoIncautado" />
+        </set>
+        
     </class>
 </hibernate-mapping>

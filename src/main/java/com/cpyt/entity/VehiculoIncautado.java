@@ -18,6 +18,7 @@ public class VehiculoIncautado  implements java.io.Serializable {
      private String descripcion;
      private String estado;
      private Set papeletas = new HashSet(0);
+     private Set<Papeleta> papeletaList;
 
     public VehiculoIncautado() {
     }
@@ -89,7 +90,15 @@ public class VehiculoIncautado  implements java.io.Serializable {
         this.papeletas = papeletas;
     }
 
+    public Set<Papeleta> getPapeletaList() {
+        return papeletaList;
+    }
 
+    public void setPapeletaList(Set<Papeleta> papeletaList) {
+        this.papeletaList = papeletaList;
+    }
+
+    
 
 
 }
