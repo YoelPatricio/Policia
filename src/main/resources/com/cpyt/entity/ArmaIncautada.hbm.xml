@@ -12,7 +12,7 @@
             <column name="id_arma" not-null="true" />
         </many-to-one>
         <many-to-one name="operativo" class="com.cpyt.entity.Operativo" fetch="select">
-            <column name="id_opera" not-null="true" />
+            <column name="id_opera"/>
         </many-to-one>
         <property name="serie" type="string">
             <column name="serie" length="50" not-null="true" />

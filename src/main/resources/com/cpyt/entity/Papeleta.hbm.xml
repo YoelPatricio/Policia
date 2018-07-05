@@ -9,7 +9,7 @@
             <generator class="identity" />
         </id>
         <many-to-one name="vehiculoIncautado" class="com.cpyt.entity.VehiculoIncautado" fetch="select">
-            <column name="id_vehincau" not-null="true" />
+            <column name="id_vehincau"/>
         </many-to-one>
         <property name="tipoPape" type="string">
             <column name="tipo_pape" length="100" not-null="true" />

@@ -3,14 +3,21 @@ package com.cpyt.dao;
 
 
 
+import com.cpyt.entity.Arma;
+import com.cpyt.entity.ArmaIncautada;
 import com.cpyt.entity.Delito;
 import com.cpyt.entity.Denuncia;
+import com.cpyt.entity.Droga;
+import com.cpyt.entity.Operativo;
+import com.cpyt.entity.Papeleta;
 import com.cpyt.entity.Persona;
 import com.cpyt.entity.PersonaDenuncia;
 import com.cpyt.entity.ServicioPolicial;
 import com.cpyt.entity.SubtipoDelito;
 import com.cpyt.entity.TipoDelito;
 import com.cpyt.entity.Usuario;
+import com.cpyt.entity.Vehiculo;
+import com.cpyt.entity.VehiculoIncautado;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -123,7 +130,7 @@ public class GenericDAO {
     public static void main(String[] args) {
         GenericDAO g = new GenericDAO();
         
-        /* INSERT PARA PROCESO DE DENUNCIA
+        /* //INSERT PARA PROCESO DE DENUNCIA
         Denuncia den = new Denuncia();
         
         Delito de = new Delito();
@@ -164,6 +171,8 @@ public class GenericDAO {
         g.insert(den);
         */
         
+        
+        /* //INSERT PARA PROCESO DE SERVICIO POLICIAL
         ServicioPolicial sp = new ServicioPolicial();
         
         Denuncia d = new Denuncia();
@@ -184,8 +193,99 @@ public class GenericDAO {
         sp.setHoraSoli("12:58");
         
         g.insert(sp);
+        */
+        
+        Operativo ope = new Operativo();
+        
+        ope.setTipoOpera("Transito");
+        ope.setDireccion("El porvenir");
+        ope.setDescripcion("Operativo realizado por sospechas etc etc");
+        ope.setFechRegis(new Date());
+        ope.setHoraRegis("23:25");
+        ope.setFechHecho(new Date());
+        ope.setHoraHecho("22:05");
+        
+        VehiculoIncautado vi = new VehiculoIncautado();
+        Vehiculo ve = new Vehiculo();
+        ve.setIdVehi(1);
+        vi.setVehiculo(ve);
+        vi.setPlaca("DSF-5487");
+        vi.setDescripcion("Vehiculo sospechoso color negro");
+        vi.setEstado("DETENIDO");
+        
+        VehiculoIncautado vi2 = new VehiculoIncautado();
+        Vehiculo ve2 = new Vehiculo();
+        ve2.setIdVehi(2);
+        vi2.setVehiculo(ve);
+        vi2.setPlaca("ABC-2222");
+        vi2.setDescripcion("2Vehiculo sospechoso color BLANCO");
+        vi2.setEstado("DEPOSITO");
+        Papeleta pa = new Papeleta();
+        pa.setTipoPape("LEVE");
+        pa.setStipoPape("L01");
+        pa.setMonto(258L);
+        HashSet<Papeleta> hpa = new HashSet<Papeleta>();
+        hpa.add(pa);
+        vi2.setPapeletaList(hpa);
+        
+        HashSet<VehiculoIncautado> hvi = new HashSet<VehiculoIncautado>();
+        hvi.add(vi);
+        hvi.add(vi2);
+        
+        ope.setVehiculoIncautadoList(hvi);
+        
+        ArmaIncautada ai = new ArmaIncautada();
+        Arma ar = new Arma();
+        ar.setIdArma(1);
+        ai.setArma(ar);
+        ai.setSerie("65df6d");
+        ai.setDescripcion("Arma automatica");
+        
+        HashSet<ArmaIncautada> hai = new HashSet<ArmaIncautada>();
+        hai.add(ai);
+        
+        ope.setArmaIncautadaList(hai);
+        
+        Droga dr = new Droga();
+        dr.setTipoDroga("PVC");
+        dr.setQuetesDroga(20);
+        dr.setKgDroga(2);
+        dr.setDescripcion("Desc droga");
+        
+        Droga dr2 = new Droga();
+        dr2.setTipoDroga("marihuana");
+        dr2.setQuetesDroga(100);
+        dr2.setKgDroga(1);
+        dr2.setDescripcion("Desc droga2");
+        
+        HashSet<Droga> hdr = new HashSet<Droga>();
+        hdr.add(dr);
+        hdr.add(dr2);
+        
+        ope.setDrogaList(hdr);
+        
+        PersonaDenuncia pd = new PersonaDenuncia();
+        Persona per = new Persona();
+        per.setIdPerso(3);
+        pd.setPersona(per);
+        pd.setSituacion("Situacion p3");
+        pd.setEstado("Estado p3");
+        
+        PersonaDenuncia pd2 = new PersonaDenuncia();
+        Persona per2 = new Persona();
+        per2.setIdPerso(4);
+        pd2.setPersona(per);
+        pd2.setSituacion("Situacion p4");
+        pd2.setEstado("Estado p4");
+        
+        HashSet<PersonaDenuncia> hpd = new HashSet<PersonaDenuncia>();
+        hpd.add(pd);
+        hpd.add(pd2);
+        
+        ope.setPersonaDenunciaList(hpd);
         
         
+        g.insert(ope);
         
     }
 }
