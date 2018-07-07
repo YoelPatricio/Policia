@@ -2,26 +2,7 @@
 package com.cpyt.dao;
 
 
-
-import com.cpyt.entity.Arma;
-import com.cpyt.entity.ArmaIncautada;
-import com.cpyt.entity.Delito;
-import com.cpyt.entity.Denuncia;
-import com.cpyt.entity.Droga;
 import com.cpyt.entity.Operativo;
-import com.cpyt.entity.Papeleta;
-import com.cpyt.entity.Persona;
-import com.cpyt.entity.PersonaDenuncia;
-import com.cpyt.entity.ServicioPolicial;
-import com.cpyt.entity.SubtipoDelito;
-import com.cpyt.entity.TipoDelito;
-import com.cpyt.entity.Usuario;
-import com.cpyt.entity.Vehiculo;
-import com.cpyt.entity.VehiculoIncautado;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -76,10 +57,27 @@ public class GenericDAO {
         return siguienteID;
     }
     
+    public Integer ultimoID(String id,String entidad){
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("select max("+id+") from "+entidad);
+        List results = query.list();
+        Integer ultimoID =  (Integer) results.get(0);
+        return ultimoID;
+    }
+    
     public List<Object> list(String entidad) {
 
         Session session = sessionFactory.openSession();
         Query query = session.createQuery("from "+entidad+" where isDeleted=?");
+        query.setParameter(0, 0);
+        List results = query.list();
+        return results;
+    }
+    
+    public List<Object> getComboList(String tabla,String pkID, String columnItem) {
+
+        Session session = sessionFactory.openSession();
+        Query query = session.createSQLQuery("select from "+tabla+" where isDeleted=?");
         query.setParameter(0, 0);
         List results = query.list();
         return results;
@@ -195,7 +193,9 @@ public class GenericDAO {
         g.insert(sp);
         */
         
-        Operativo ope = new Operativo();
+        
+        // PROCESO DE OPERATIVO
+        /*Operativo ope = new Operativo();
         
         ope.setTipoOpera("Transito");
         ope.setDireccion("El porvenir");
@@ -286,6 +286,18 @@ public class GenericDAO {
         
         
         g.insert(ope);
+        */
         
+        
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("from Operativo where idOpera=3");
+       
+        
+       
+        List<Operativo> results = query.list();
+        
+        Transaction tx = session.beginTransaction();
+        tx.commit();
+        session.close();
     }
 }

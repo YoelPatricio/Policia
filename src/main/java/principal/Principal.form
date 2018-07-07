@@ -64,18 +64,18 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="uno" min="-2" pref="258" max="-2" attributes="0"/>
-                          <Component id="dos" min="-2" pref="258" max="-2" attributes="0"/>
-                          <Component id="tres" min="-2" pref="258" max="-2" attributes="0"/>
-                          <Component id="cuatro" min="-2" pref="258" max="-2" attributes="0"/>
-                          <Component id="cinco" min="-2" pref="258" max="-2" attributes="0"/>
-                          <Component id="seis" min="-2" pref="258" max="-2" attributes="0"/>
-                          <Component id="siete" min="-2" pref="258" max="-2" attributes="0"/>
-                          <Component id="ocho" min="-2" pref="258" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
+                          <Component id="seis" alignment="0" max="32767" attributes="0"/>
+                          <Component id="siete" alignment="0" max="32767" attributes="0"/>
+                          <Component id="ocho" alignment="0" max="32767" attributes="0"/>
+                          <Component id="dos" alignment="0" max="32767" attributes="0"/>
+                          <Component id="tres" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cuatro" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cinco" alignment="0" max="32767" attributes="0"/>
+                          <Component id="uno" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
@@ -318,7 +318,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="36" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -531,7 +531,7 @@
                       <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="811" max="32767" attributes="0"/>
+                      <EmptySpace pref="823" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -625,7 +625,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="587" max="32767" attributes="0"/>
+                          <EmptySpace pref="657" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -668,6 +668,9 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                  </AuxValues>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
                 </Container>
