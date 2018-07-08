@@ -2,6 +2,7 @@
 package com.cpyt.dao;
 
 
+import com.cpyt.entity.Delito;
 import com.cpyt.entity.Operativo;
 import java.util.List;
 import org.hibernate.Query;
@@ -74,13 +75,27 @@ public class GenericDAO {
         return results;
     }
     
-    public List<Object> getComboList(String tabla,String pkID, String columnItem) {
+    public List<Object> getComboList(String tabla,String pkID, String columnItem,String where) {
 
         Session session = sessionFactory.openSession();
-        Query query = session.createSQLQuery("select from "+tabla+" where isDeleted=?");
-        query.setParameter(0, 0);
+        Query query = session.createSQLQuery("select "+pkID+","+columnItem+" from "+tabla +" "+ where);
+        
         List results = query.list();
         return results;
+    }
+    
+    public Integer getIdItemSeleccionado(String pkId,String tabla,String equalsColumn,String valueColumn,String aditionalWhere) {
+
+        Session session = sessionFactory.openSession();
+        String sql = "select "+pkId+" from "+tabla+" where "+equalsColumn+"='"+valueColumn+"' "+aditionalWhere;
+        Query query = session.createSQLQuery(sql.toString());
+        List results = query.list();
+        Integer id=0;
+        
+        if(results.size()>0){
+         id= (Integer) results.get(0);
+        }
+        return id;
     }
     
     public void delete(String tabla, String campoID,Integer id) {
@@ -289,15 +304,12 @@ public class GenericDAO {
         */
         
         
-        Session session = sessionFactory.openSession();
-        Query query = session.createQuery("from Operativo where idOpera=3");
-       
-        
-       
-        List<Operativo> results = query.list();
-        
-        Transaction tx = session.beginTransaction();
-        tx.commit();
-        session.close();
+        List<Object> sad = g.getComboList("delito", "id_deli", "nombre", "");
+        Object[] s = new Object[]{};
+        for (int i = 0;i<sad.size();i++) {
+            s = (Object[])sad.get(i);
+            System.out.println("Id = "+s[0]);
+            System.out.println("Nombre = "+s[1]);
+        }
     }
 }
