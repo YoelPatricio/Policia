@@ -16,23 +16,26 @@ public class Usuario  implements java.io.Serializable {
      private Persona persona;
      private String usuario;
      private String password;
+     private Integer sesion;
      private Set servicioPolicials = new HashSet(0);
 
     public Usuario() {
     }
 
 	
-    public Usuario(Perfil perfil, Persona persona, String usuario, String password) {
+    public Usuario(Perfil perfil, Persona persona, String usuario, String password,Integer sesion) {
         this.perfil = perfil;
         this.persona = persona;
         this.usuario = usuario;
         this.password = password;
+        this.sesion = sesion;
     }
-    public Usuario(Perfil perfil, Persona persona, String usuario, String password, Set servicioPolicials) {
+    public Usuario(Perfil perfil, Persona persona, String usuario, String password, Set servicioPolicials,Integer sesion) {
        this.perfil = perfil;
        this.persona = persona;
        this.usuario = usuario;
        this.password = password;
+       this.sesion = sesion;
        this.servicioPolicials = servicioPolicials;
     }
    
@@ -79,7 +82,15 @@ public class Usuario  implements java.io.Serializable {
         this.servicioPolicials = servicioPolicials;
     }
 
+    public Integer getSesion() {
+        return sesion;
+    }
 
+    public void setSesion(Integer sesion) {
+        this.sesion = sesion;
+    }
+
+    
 
 
 }

@@ -30,7 +30,7 @@
             <column name="fech_soli" length="10" not-null="true" />
         </property>
         <property name="horaSoli" type="string">
-            <column name="hora_soli" length="20" not-null="true" />
+            <column name="hora_soli" length="20" />
         </property>
     </class>
 </hibernate-mapping>

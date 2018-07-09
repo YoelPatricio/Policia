@@ -5,21 +5,27 @@
  */
 package dialogos;
 
+import paneles.*;
+import dialogos.*;
+import com.cpyt.dao.DenunciaDAO;
 import com.cpyt.dao.GenericDAO;
+import com.cpyt.entity.Denuncia;
 import com.cpyt.entity.Persona;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import paneles.pnlRegistrarDenuncia;
+import principal.Principal;
 
 /**
  *
  * @author Yoel
  */
-public class dlgPersona extends javax.swing.JDialog {
+public class dlgRegistrarPersona extends javax.swing.JDialog {
 
     /**
      * Creates new form persona
      */
-    public dlgPersona(java.awt.Frame parent, boolean modal) {
+    public dlgRegistrarPersona(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -261,6 +267,9 @@ public class dlgPersona extends javax.swing.JDialog {
         
         try {
             generic.insert(per);
+            JOptionPane.showMessageDialog(rootPane, "Persona Grabado Exitosamente !");
+            this.dispose();
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Ocurrio un error al grabar la persona");
         }
@@ -281,7 +290,7 @@ public class dlgPersona extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                dlgPersona dialog = new dlgPersona(new javax.swing.JFrame(), true);
+                dlgRegistrarPersona dialog = new dlgRegistrarPersona(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

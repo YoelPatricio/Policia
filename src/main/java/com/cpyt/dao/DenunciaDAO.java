@@ -8,6 +8,7 @@ package com.cpyt.dao;
 import static com.cpyt.dao.GenericDAO.sessionFactory;
 import com.cpyt.entity.Delito;
 import com.cpyt.entity.Denuncia;
+import com.cpyt.entity.Persona;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.hibernate.Query;
@@ -89,6 +90,48 @@ public class DenunciaDAO {
         //query.setParameter(9, "%"+cadena+"%");
         List results = query.list();
         return results;
+    }
+    
+    public Persona consultarPersona(String dni) {
+
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("from Persona where dni = ?");
+        query.setParameter(0, dni);
+        List results = query.list();
+        
+        Persona per = new Persona();
+        if(results.size()>0){
+         return per = (Persona) results.get(0);
+        }
+        return null;
+    }
+    
+    public Denuncia getDenunciaPorId(Integer id) {
+
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("from Denuncia where idDenun = ?");
+        query.setParameter(0, id);
+        List results = query.list();
+        
+        Denuncia denun = new Denuncia();
+        if(results.size()>0){
+         return denun = (Denuncia) results.get(0);
+        }
+        return null;
+    }
+    
+    public Persona consultarPersonaPorId(Integer id) {
+
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("from Persona where idPerso = ?");
+        query.setParameter(0, id);
+        List results = query.list();
+        
+        Persona per = new Persona();
+        if(results.size()>0){
+         return per = (Persona) results.get(0);
+        }
+        return null;
     }
     
     public static void main(String[] args) {

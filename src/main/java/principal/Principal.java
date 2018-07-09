@@ -58,6 +58,7 @@ public class Principal extends javax.swing.JFrame {
         siete = new rsbuttom.RSButtonMetro();
         seis = new rsbuttom.RSButtonMetro();
         cuatro = new rsbuttom.RSButtonMetro();
+        txtIDDENUNCIA = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -312,6 +313,8 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        txtIDDENUNCIA.setText("jLabel1");
+
         javax.swing.GroupLayout pnlMenuLayout = new javax.swing.GroupLayout(pnlMenu);
         pnlMenu.setLayout(pnlMenuLayout);
         pnlMenuLayout.setHorizontalGroup(
@@ -329,6 +332,10 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(cinco, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(uno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(pnlMenuLayout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(txtIDDENUNCIA)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlMenuLayout.setVerticalGroup(
             pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -352,7 +359,9 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(siete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(ocho, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(ocho, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtIDDENUNCIA))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -988,6 +997,7 @@ public class Principal extends javax.swing.JFrame {
     private rsbuttom.RSButtonMetro seis;
     private rsbuttom.RSButtonMetro siete;
     private rsbuttom.RSButtonMetro tres;
+    public static javax.swing.JLabel txtIDDENUNCIA;
     private rsbuttom.RSButtonMetro uno;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,8 +5,23 @@
  */
 package paneles;
 
+import com.cpyt.dao.DenunciaDAO;
 import com.cpyt.dao.GenericDAO;
+import com.cpyt.entity.Delito;
+import com.cpyt.entity.Denuncia;
+import com.cpyt.entity.Modalidad;
+import com.cpyt.entity.Persona;
+import com.cpyt.entity.PersonaDenuncia;
+import com.cpyt.entity.SubdetalleDelito;
+import com.cpyt.entity.SubtipoDelito;
+import com.cpyt.entity.TipoDelito;
+import dialogos.dlgRegistrarPersona;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import principal.Principal;
 
 /**
@@ -18,6 +33,10 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
     /**
      * Creates new form pnlHome
      */
+    GenericDAO g = new GenericDAO();
+    List<PersonaDenuncia> personaDenunciaList = new ArrayList<>();
+    DefaultTableModel dtm = new DefaultTableModel();
+    
     public pnlRegistrarDenuncia() {
         initComponents();
         
@@ -71,7 +90,10 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
         btnBuscarPersona = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableDatos = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtIdPersona = new javax.swing.JLabel();
         txtIdDelito = new javax.swing.JLabel();
         txtIdTipoDelito = new javax.swing.JLabel();
         txtIdSubTipoDelito = new javax.swing.JLabel();
@@ -121,6 +143,33 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
             }
         });
 
+        cboSubTipoDelito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboSubTipoDelitoActionPerformed(evt);
+            }
+        });
+
+        cboTipoDelito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTipoDelitoActionPerformed(evt);
+            }
+        });
+
+        cboSubDetalleDelito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboSubDetalleDelitoActionPerformed(evt);
+            }
+        });
+
+        cboAfectado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione--", "BANCOS O FINANCIERAS", "BOTICAS Y FARMACIAS", "CAMBISTAS", "CENTROS EDUCATIVOS", "CENTROS COMERCIALES", "CONDUCTORES DE OTROS VEHICULOS", "DOMICILIOS", "EMPRESAS DE PRODUCCIÓN", "EMPRESAS DE SERVICIOS", "GRIFOS", "HOTELES", "INSTITUCIONES", "TAXISTAS", "TRANSEUNTES", "VEH. TRANSPORTE DE PASAJEROS", "VEHÍCULOS DISTRIBUIDORES", "VEHÍCULOS DE TRANSP. CARGA", "OTROS" }));
+        cboAfectado.setEnabled(false);
+
+        cboModalidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboModalidadActionPerformed(evt);
+            }
+        });
+
         jLabel5.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(38, 86, 186));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -157,7 +206,6 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        txtDNI.setEditable(false);
         txtDNI.setOpaque(false);
 
         txtNombreApellidos.setEditable(false);
@@ -176,8 +224,18 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
         cboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--SELECCIONE--", "CITADO", "DETENIDO", "NO HABIDO" }));
 
         btnAgregarPersona.setText("AGREGAR");
+        btnAgregarPersona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarPersonaActionPerformed(evt);
+            }
+        });
 
         btnGrabarDenuncia.setText("GRABAR");
+        btnGrabarDenuncia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGrabarDenunciaActionPerformed(evt);
+            }
+        });
 
         btnCancelarDenuncia.setText("CANCELAR");
         btnCancelarDenuncia.addActionListener(new java.awt.event.ActionListener() {
@@ -187,13 +245,18 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
         });
 
         btnBuscarPersona.setText("BUSCAR");
+        btnBuscarPersona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarPersonaActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Roboto", 1, 30)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(128, 128, 131));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Personas vinculadas a la denuncia");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -201,7 +264,15 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
                 "DNI", "Apellidos y Nombres", "Situación", "Estado"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tableDatos);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setText("Apellidos y nombres");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setText("DNI");
+
+        txtIdPersona.setText("0");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -218,21 +289,30 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGap(596, 596, 596))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(txtDNI)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtNombreApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnBuscarPersona)
-                                        .addGap(39, 39, 39)
-                                        .addComponent(cboSituacion, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGap(35, 35, 35))
+                                            .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtNombreApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(11, 11, 11)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(btnBuscarPersona)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(cboSituacion, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(txtIdPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(28, 28, 28)))
                                 .addComponent(btnAgregarPersona, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(26, 26, 26))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -247,11 +327,16 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAgregarPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(txtIdPersona))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -294,13 +379,11 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cboDelito, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(txtFechaHecho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(78, 78, 78))
-                            .addComponent(cboModalidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cboSubTipoDelito, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtFechaHecho, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboDelito, 0, 219, Short.MAX_VALUE)
+                            .addComponent(cboSubTipoDelito, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cboModalidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -315,16 +398,15 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
                                     .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cboTipoDelito, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cboSubDetalleDelito, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cboAfectado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cboSubDetalleDelito, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboAfectado, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(txtHoraHecho, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtHoraHecho, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtMinutoHecho, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(61, 61, 61))))
+                                .addComponent(txtMinutoHecho, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cboTipoDelito, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(txtDireccion)
                     .addComponent(jScrollPane1))
                 .addGap(18, 18, 18)
@@ -349,7 +431,7 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(cboDelito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboDelito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cboTipoDelito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtIdTipoDelito)
                             .addComponent(txtIdDelito))
@@ -370,16 +452,16 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtHoraHecho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtMinutoHecho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(txtHoraHecho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel1)
+                                        .addComponent(txtMinutoHecho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(txtFechaHecho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(3, 3, 3)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel13)
-                                    .addComponent(jLabel1))))
+                                .addComponent(jLabel13)))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -425,12 +507,200 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelarDenunciaActionPerformed
 
     private void cboDelitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboDelitoActionPerformed
-        GenericDAO g = new GenericDAO();
+        //GenericDAO g = new GenericDAO();
         Integer idDeli = g.getIdItemSeleccionado("id_deli", "delito", "nombre", cboDelito.getSelectedItem().toString(), "");
         txtIdDelito.setText(String.valueOf(idDeli));
         
         cargarComboTipoDelito();
     }//GEN-LAST:event_cboDelitoActionPerformed
+
+    private void cboTipoDelitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTipoDelitoActionPerformed
+        
+        if (!cboDelito.getSelectedItem().toString().equals("--Seleccione--")) {
+            
+            if(!(cboTipoDelito.getSelectedItem()==null)){
+               //GenericDAO g = new GenericDAO();
+                Integer idTipoDeli = g.getIdItemSeleccionado("id_tdeli", "tipo_delito", "nombre", cboTipoDelito.getSelectedItem().toString(), "");
+                txtIdTipoDelito.setText(String.valueOf(idTipoDeli));
+                if(idTipoDeli == 23 || idTipoDeli == 24){
+                    cboAfectado.setEnabled(true);
+                }else{
+                    cboAfectado.setEnabled(false);
+                }
+            }
+            
+        }
+        
+        
+        cargarComboModalidad();
+        cargarComboSubTipoDelito();
+    }//GEN-LAST:event_cboTipoDelitoActionPerformed
+
+    private void cboSubTipoDelitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSubTipoDelitoActionPerformed
+        if (cboTipoDelito.getSelectedItem()!=null && !cboTipoDelito.getSelectedItem().toString().equals("--Seleccione--")) {
+            
+            if(!(cboSubTipoDelito.getSelectedItem()==null)){
+               //GenericDAO g = new GenericDAO();
+                Integer idSubTipoDeli = g.getIdItemSeleccionado("id_stdelito", "subtipo_delito", "nombre", cboSubTipoDelito.getSelectedItem().toString(), "");
+                txtIdSubTipoDelito.setText(String.valueOf(idSubTipoDeli)); 
+            }
+            
+        }
+        
+        cargarComboSubDetalleDelito();
+    }//GEN-LAST:event_cboSubTipoDelitoActionPerformed
+
+    private void cboSubDetalleDelitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSubDetalleDelitoActionPerformed
+        if (cboSubTipoDelito.getSelectedItem()!=null && !cboSubTipoDelito.getSelectedItem().toString().equals("--Seleccione--")) {
+            
+            if(!(cboSubDetalleDelito.getSelectedItem()==null)){
+               //GenericDAO g = new GenericDAO();
+                Integer idSubDetalleDeli = g.getIdItemSeleccionado("id_sddelito", "subdetalle_delito", "nombre", cboSubDetalleDelito.getSelectedItem().toString(), "");
+                txtIdSubDetalleDelito.setText(String.valueOf(idSubDetalleDeli)); 
+            }
+            
+        }
+        
+    }//GEN-LAST:event_cboSubDetalleDelitoActionPerformed
+
+    private void cboModalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboModalidadActionPerformed
+        if (cboTipoDelito.getSelectedItem()!=null && !cboTipoDelito.getSelectedItem().toString().equals("--Seleccione--")) {
+            
+            if(!(cboModalidad.getSelectedItem()==null)){
+               //GenericDAO g = new GenericDAO();
+                Integer idModa = g.getIdItemSeleccionado("id_moda", "modalidad", "nombre", cboModalidad.getSelectedItem().toString(), "");
+                txtIdModa.setText(String.valueOf(idModa)); 
+            }
+            
+        }
+    }//GEN-LAST:event_cboModalidadActionPerformed
+
+    private void btnBuscarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPersonaActionPerformed
+        if(txtDNI.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(cboEstado, "Ingrese el DNI para buscar !");
+            return;
+        }
+        
+        DenunciaDAO d = new DenunciaDAO();
+        Persona persona = d.consultarPersona(txtDNI.getText());
+        if(persona == null){
+            JOptionPane.showMessageDialog(null, "No encontrado, tiene que registrar a la persona !");
+            dlgRegistrarPersona rp = new dlgRegistrarPersona(null, true);
+            rp.setVisible(true);
+    
+        }else{
+            txtIdPersona.setText(persona.getIdPerso().toString());
+            txtDNI.setText(persona.getDni());
+            txtNombreApellidos.setText(persona.getApelNomb());            
+        }
+
+    }//GEN-LAST:event_btnBuscarPersonaActionPerformed
+
+    private void btnAgregarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPersonaActionPerformed
+        
+        Integer idPerso = Integer.parseInt(txtIdPersona.getText());
+        String dni = txtDNI.getText();
+        String apeNomb = txtNombreApellidos.getText();
+        String situacion = cboSituacion.getSelectedItem().toString();
+        String estado = cboEstado.getSelectedItem().toString();
+        
+        PersonaDenuncia pd = new PersonaDenuncia();
+        Persona per = new Persona();
+        per.setIdPerso(idPerso);
+        per.setDni(dni);
+        per.setApelNomb(apeNomb);
+        
+        pd.setPersona(per);
+        pd.setSituacion(situacion);
+        pd.setEstado(estado);
+        
+        personaDenunciaList.add(pd);
+        
+        txtIdPersona.setText("0");
+        txtDNI.setText("");
+        txtNombreApellidos.setText("");
+        cboSituacion.setSelectedIndex(0);
+        cboEstado.setSelectedIndex(0);
+        txtDNI.requestFocus();
+        
+        cargarPersonasVinculadasDenuncia();
+        
+        
+    }//GEN-LAST:event_btnAgregarPersonaActionPerformed
+
+    private void btnGrabarDenunciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarDenunciaActionPerformed
+         //INSERT PARA PROCESO DE DENUNCIA
+        try {
+            
+        
+        Denuncia den = new Denuncia();
+        
+        if(!txtIdDelito.getText().equals("0")){
+            Delito de = new Delito();
+            de.setIdDeli(Integer.parseInt(txtIdDelito.getText()));
+            den.setDelito(de);
+        }
+        
+        
+        if(!txtIdTipoDelito.getText().equals("0")){
+            TipoDelito td = new TipoDelito();
+            td.setIdTdeli(Integer.parseInt(txtIdTipoDelito.getText()));
+            den.setTipoDelito(td);   
+        }
+        
+        
+        if(!txtIdSubTipoDelito.getText().equals("0")){
+            SubtipoDelito std = new SubtipoDelito();
+            std.setIdStdelito(Integer.parseInt(txtIdSubTipoDelito.getText()));
+            den.setSubtipoDelito(std);
+        }
+        
+        
+        if(!txtIdSubDetalleDelito.getText().equals("0")){
+            SubdetalleDelito sdd = new SubdetalleDelito();
+            sdd.setIdSddelito(Integer.parseInt(txtIdSubDetalleDelito.getText()));
+            den.setSubdetalleDelito(sdd);
+        }
+        
+        
+        if(!txtIdModa.getText().equals("0")){
+            Modalidad m = new Modalidad();
+            m.setIdModa(Integer.parseInt(txtIdModa.getText()));
+            den.setModalidad(m);    
+        }
+          
+        
+        
+        
+        den.setFechRegis(new Date());
+        den.setHoraRegis("20:50");
+        den.setFechHecho(txtFechaHecho.getDate());
+        den.setHoraHecho(txtHoraHecho.getSelectedItem().toString()+":"+txtMinutoHecho.getSelectedItem());
+        den.setAfectado(cboAfectado.getSelectedItem().toString());
+        den.setDireccion(txtDireccion.getText());
+        den.setDescripcion(txtDescripcion.getText());
+        
+        
+        
+        HashSet<PersonaDenuncia> pd = new HashSet<PersonaDenuncia>();
+        
+        for (int i = 0; i < personaDenunciaList.size(); i++) {
+            PersonaDenuncia pede = new PersonaDenuncia();
+            pede = personaDenunciaList.get(i);
+           pd.add(new PersonaDenuncia(pede.getPersona(), pede.getSituacion(), pede.getEstado()));
+        }
+        if(pd.size()>0){
+            den.setPersonaDenunciaList(pd);
+        }
+        
+        
+        g.insert(den);
+        JOptionPane.showMessageDialog(null, "Denuncia Grabado Exitosamente !");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al grabar la Denuncia !");
+        }
+        
+    }//GEN-LAST:event_btnGrabarDenunciaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -455,23 +725,26 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    public static javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txtDNI;
+    private javax.swing.JTable tableDatos;
+    public static javax.swing.JTextField txtDNI;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtDireccion;
     private com.toedter.calendar.JDateChooser txtFechaHecho;
     private javax.swing.JComboBox<String> txtHoraHecho;
     private javax.swing.JLabel txtIdDelito;
     private javax.swing.JLabel txtIdModa;
+    public static javax.swing.JLabel txtIdPersona;
     private javax.swing.JLabel txtIdSubDetalleDelito;
     private javax.swing.JLabel txtIdSubTipoDelito;
     private javax.swing.JLabel txtIdTipoDelito;
@@ -480,7 +753,7 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void cargarComboDelito() {
-        GenericDAO g = new GenericDAO();
+        //GenericDAO g = new GenericDAO();
         List<Object> sad = g.getComboList("delito", "id_deli", "nombre", "");
         Object[] s = new Object[]{};
         this.cboDelito.addItem("--Seleccione--");
@@ -495,7 +768,7 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
     }
 
     private void cargarComboTipoDelito() {
-        GenericDAO g = new GenericDAO();
+        //GenericDAO g = new GenericDAO();
         List<Object> sad = g.getComboList("tipo_delito", "id_tdeli", "nombre", "where id_deli="+txtIdDelito.getText());
         Object[] s = new Object[]{};
         this.cboTipoDelito.removeAllItems();
@@ -519,26 +792,102 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
     }
     
     private void cargarComboSubTipoDelito() {
-        GenericDAO g = new GenericDAO();
-        List<Object> sad = g.getComboList("subtipo_delito", "id_stdelito", "nombre", "where id_tdeli="+txtIdTipoDelito.getText());
+        //GenericDAO g = new GenericDAO();
+        List<Object> sad = g.getComboList("subtipo_delito", "id_stdelito", "nombre", "where id_tdelito="+txtIdTipoDelito.getText());
         Object[] s = new Object[]{};
-        this.cboTipoDelito.removeAllItems();
-        this.cboTipoDelito.addItem("--Seleccione--");
+        this.cboSubTipoDelito.removeAllItems();
+        this.cboSubTipoDelito.addItem("--Seleccione--");
         for (int i = 0;i<sad.size();i++) {
             s = (Object[])sad.get(i);
             System.out.println("Id = "+s[0]);
             System.out.println("Nombre = "+s[1]);
             
-            this.cboTipoDelito.addItem(s[1].toString());
+            this.cboSubTipoDelito.addItem(s[1].toString());
         
         }
         boolean existe = false;
         if(sad.size()==0){
-            this.cboTipoDelito.setEnabled(false);
-            this.cboTipoDelito.removeAllItems();
-            this.cboTipoDelito.addItem("No existe");
+            this.cboSubTipoDelito.setEnabled(false);
+            this.cboSubTipoDelito.removeAllItems();
+            this.cboSubTipoDelito.addItem("No existe");
         }else{
-            this.cboTipoDelito.setEnabled(true);
+            this.cboSubTipoDelito.setEnabled(true);
         }
+    }
+
+    private void cargarComboSubDetalleDelito() {
+        //GenericDAO g = new GenericDAO();
+        List<Object> sad = g.getComboList("subdetalle_delito", "id_sddelito", "nombre", "where id_stdelito="+txtIdSubTipoDelito.getText());
+        Object[] s = new Object[]{};
+        this.cboSubDetalleDelito.removeAllItems();
+        this.cboSubDetalleDelito.addItem("--Seleccione--");
+        for (int i = 0;i<sad.size();i++) {
+            s = (Object[])sad.get(i);
+            System.out.println("Id = "+s[0]);
+            System.out.println("Nombre = "+s[1]);
+            
+            this.cboSubDetalleDelito.addItem(s[1].toString());
+        
+        }
+        boolean existe = false;
+        if(sad.size()==0){
+            this.cboSubDetalleDelito.setEnabled(false);
+            this.cboSubDetalleDelito.removeAllItems();
+            this.cboSubDetalleDelito.addItem("No existe");
+        }else{
+            this.cboSubDetalleDelito.setEnabled(true);
+        }
+    }
+
+    private void cargarComboModalidad() {
+        //GenericDAO g = new GenericDAO();
+        List<Object> sad = g.getComboList("modalidad", "id_moda", "nombre", "where id_stdelito="+txtIdTipoDelito.getText());
+        Object[] s = new Object[]{};
+        this.cboModalidad.removeAllItems();
+        this.cboModalidad.addItem("--Seleccione--");
+        for (int i = 0;i<sad.size();i++) {
+            s = (Object[])sad.get(i);
+            System.out.println("Id = "+s[0]);
+            System.out.println("Nombre = "+s[1]);
+            
+            this.cboModalidad.addItem(s[1].toString());
+        
+        }
+        boolean existe = false;
+        if(sad.size()==0){
+            this.cboModalidad.setEnabled(false);
+            this.cboModalidad.removeAllItems();
+            this.cboModalidad.addItem("No existe");
+        }else{
+            this.cboModalidad.setEnabled(true);
+        }
+    }
+    
+    public void cargarPersonaRegistrada(){
+        Integer idPerso = g.ultimoID("idPerso", "Persona");
+        DenunciaDAO d = new DenunciaDAO();
+        Persona perso = d.consultarPersonaPorId(idPerso);
+        txtIdPersona.setText(perso.getIdPerso().toString());
+        txtNombreApellidos.setText(perso.getApelNomb());
+        txtDNI.setText(perso.getDni());
+    }
+
+    private void cargarPersonasVinculadasDenuncia() {
+        Object[][] matriz = new Object[personaDenunciaList.size()][4];
+        Object[] s = new Object[]{};
+        for (int i = 0; i < personaDenunciaList.size(); i++) {
+            
+            matriz[i][0] = personaDenunciaList.get(i).getPersona().getDni();
+            matriz[i][1] = personaDenunciaList.get(i).getPersona().getApelNomb();
+            matriz[i][2] = personaDenunciaList.get(i).getSituacion();
+            matriz[i][3] = personaDenunciaList.get(i).getEstado();
+ 
+        }
+        Object[][] data = matriz;
+        String[] cabecera = {"DNI", "Apellidos y Nombres","Situación","Estado"};
+        dtm = new DefaultTableModel(data, cabecera);
+        tableDatos.setModel(dtm);
+        
+
     }
 }
