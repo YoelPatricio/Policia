@@ -51,7 +51,7 @@ public class dlgRegistrarServicioPolicial extends javax.swing.JDialog {
         jLabel15 = new javax.swing.JLabel();
         txtApellidosNombresss = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        txtIdPersona = new javax.swing.JLabel();
+        txtIdPer = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         txtIdDenuncia = new javax.swing.JTextField();
@@ -121,7 +121,7 @@ public class dlgRegistrarServicioPolicial extends javax.swing.JDialog {
             }
         });
 
-        txtIdPersona.setText("0");
+        txtIdPer.setText("0");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -139,7 +139,7 @@ public class dlgRegistrarServicioPolicial extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
                         .addGap(26, 26, 26)
-                        .addComponent(txtIdPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtIdPer, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtApellidosNombresss, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -151,7 +151,7 @@ public class dlgRegistrarServicioPolicial extends javax.swing.JDialog {
                     .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14)
                     .addComponent(jButton1)
-                    .addComponent(txtIdPersona))
+                    .addComponent(txtIdPer))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel15)
@@ -401,7 +401,7 @@ public class dlgRegistrarServicioPolicial extends javax.swing.JDialog {
         
         ServicioPolicial sp = new ServicioPolicial();
         Persona per = new Persona();
-        per.setIdPerso(Integer.parseInt(txtDNI.getText()));
+        per.setIdPerso(Integer.parseInt(txtIdPer.getText()));
         Denuncia d = new Denuncia();
         d.setIdDenun(Integer.parseInt(txtIdDenuncia.getText()));
         UsuarioDAO ud = new UsuarioDAO();
@@ -440,7 +440,7 @@ public class dlgRegistrarServicioPolicial extends javax.swing.JDialog {
             rp.setVisible(true);
     
         }else{
-            txtIdPersona.setText(persona.getIdPerso().toString());
+            txtIdPer.setText(persona.getIdPerso().toString());
             txtDNI.setText(persona.getDni());
             txtApellidosNombresss.setText(persona.getApelNomb());            
         }
@@ -506,7 +506,7 @@ public class dlgRegistrarServicioPolicial extends javax.swing.JDialog {
     public static javax.swing.JTextField txtDNI;
     public static javax.swing.JTextField txtDelito;
     public static javax.swing.JTextField txtIdDenuncia;
-    public static javax.swing.JLabel txtIdPersona;
+    public static javax.swing.JLabel txtIdPer;
     public static javax.swing.JTextField txtModalida;
     public static javax.swing.JTextField txtsubdetalleDelito;
     public static javax.swing.JTextField txtsubtipodelito;

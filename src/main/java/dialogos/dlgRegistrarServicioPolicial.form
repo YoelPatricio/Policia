@@ -147,7 +147,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                              <Component id="txtIdPersona" min="-2" pref="54" max="-2" attributes="0"/>
+                              <Component id="txtIdPer" min="-2" pref="54" max="-2" attributes="0"/>
                           </Group>
                           <Component id="txtApellidosNombresss" min="-2" pref="387" max="-2" attributes="0"/>
                       </Group>
@@ -163,7 +163,7 @@
                           <Component id="txtDNI" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtIdPersona" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtIdPer" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -222,7 +222,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="txtIdPersona">
+            <Component class="javax.swing.JLabel" name="txtIdPer">
               <Properties>
                 <Property name="text" type="java.lang.String" value="0"/>
               </Properties>

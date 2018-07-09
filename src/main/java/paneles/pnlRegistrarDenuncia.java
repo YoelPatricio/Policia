@@ -219,7 +219,7 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Datos de la Persona");
 
-        cboSituacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--SELECCIONE--", "DENUNCIANTE", "DENUNCIADO", "VICTIMA" }));
+        cboSituacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--SELECCIONE--", "DENUNCIANTE Y VICTIMA", "DENUNCIANTE", "DENUNCIADO", "VICTIMA" }));
 
         cboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--SELECCIONE--", "CITADO", "DETENIDO", "NO HABIDO" }));
 

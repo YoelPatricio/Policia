@@ -24,6 +24,7 @@ public class pnlServicioPolicial extends javax.swing.JPanel {
     DefaultTableModel dtm;
     public pnlServicioPolicial() {
         initComponents();
+        cargarDatos();
     }
 
     /**
@@ -58,6 +59,11 @@ public class pnlServicioPolicial extends javax.swing.JPanel {
         txtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBuscarActionPerformed(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
             }
         });
 
@@ -135,6 +141,10 @@ public class pnlServicioPolicial extends javax.swing.JPanel {
         sp.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        cargarDatos();
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -149,22 +159,27 @@ public class pnlServicioPolicial extends javax.swing.JPanel {
         
         ServicioPolicialDAO dao = new ServicioPolicialDAO();
         
-        List<ServicioPolicial> datos = dao.getServicioPolicial(txtBuscar.getText());
+        List<Object> datos = dao.getServicioPolicial(txtBuscar.getText());
 
-        Object[][] matriz = new Object[datos.size()][6];
-        
+        Object[][] matriz = new Object[datos.size()][7];
+        Object[] s = new Object[]{};
         for (int i = 0; i < datos.size(); i++) {
             
-            matriz[i][0] = datos.get(i).getIdSerpo();
-            matriz[i][1] = datos.get(i).getDenuncia().getIdDenun();
-            matriz[i][2] = datos.get(i).getCondicion();
-            matriz[i][3] = datos.get(i).getCosto();
-            matriz[i][4] = datos.get(i).getNumBoucher();
-            matriz[i][5] = datos.get(i).getFechSoli();
+            s=(Object[]) datos.get(i);
+            //System.out.println(s[0]);
+            
+            matriz[i][0] = s[0];
+            matriz[i][1] = s[1];
+            matriz[i][2] = s[2];
+            matriz[i][3] = s[3];
+            matriz[i][4] = s[4];
+            matriz[i][5] = s[5];
+            matriz[i][6] = s[6];
+            
 
         }
         Object[][] data = matriz;
-        String[] cabecera = {"Código", "Código Denuncia","Condición", "Costo","N° Operación de boucher", "Fecha Solicitada"};
+        String[] cabecera = {"Código", "Código Denuncia","Solicitante","Condición", "Costo","N° Operación de boucher", "Fecha Solicitada"};
         dtm = new DefaultTableModel(data, cabecera);
         tableDatos.setModel(dtm);
     }

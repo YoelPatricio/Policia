@@ -22,7 +22,7 @@ import org.hibernate.cfg.Configuration;
  *
  * @author Yoel
  */
-public class ServicioPolicialDAO {
+public class OperativoDAO {
     static Session session = null;
     
     public static final SessionFactory sessionFactory;
@@ -33,25 +33,24 @@ public class ServicioPolicialDAO {
     
     
     
-    public List<Object> getServicioPolicial(String cadena) {
+    public List<Object> getOperativo(String cadena) {
 
         Session session = sessionFactory.openSession();
-        Query query = session.createSQLQuery("select s.id_serpo,s.id_denun,p.apel_nomb,s.condicion,s.costo,s.num_boucher,s.fech_soli "
-                + " from servicio_policial s inner join persona p on s.id_perso=p.id_perso"
-                + " where cast(s.id_serpo as CHARACTER) like ? "
-                + " or cast(s.id_denun as CHARACTER) like ? "
-                + " or cast(p.apel_nomb as CHARACTER) like ?"
-                + " or s.condicion like ? "
-                + " or s.costo like ? "
-                + " or s.num_boucher like ? "
-                + " or cast(s.fech_soli as CHARACTER) like ?");
+        Query query = session.createSQLQuery("select id_opera,tipo_opera,direccion,fech_hecho,hora_hecho,descripcion "
+                + " from operativo"
+                + " where cast(id_opera as CHARACTER) like ? "
+                + " or tipo_opera like ? "
+                + " or direccion like ? "
+                + " or hora_hecho like ? "
+                + " or descripcion like ? "
+                + " or cast(fech_hecho as CHARACTER) like ?");
         query.setParameter(0, "%"+cadena+"%");
         query.setParameter(1, "%"+cadena+"%");
         query.setParameter(2, "%"+cadena+"%");
         query.setParameter(3, "%"+cadena+"%");
         query.setParameter(4, "%"+cadena+"%");
         query.setParameter(5, "%"+cadena+"%");
-        query.setParameter(6, "%"+cadena+"%");
+        
         
         
         return query.list();
