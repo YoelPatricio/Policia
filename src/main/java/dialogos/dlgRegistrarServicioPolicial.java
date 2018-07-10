@@ -41,6 +41,7 @@ public class dlgRegistrarServicioPolicial extends javax.swing.JDialog {
     public dlgRegistrarServicioPolicial(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        txtIdPer.setVisible(false);
     }
 
     /**
@@ -178,6 +179,7 @@ public class dlgRegistrarServicioPolicial extends javax.swing.JDialog {
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel18.setText("Código :");
 
+        txtIdDenuncia.setEditable(false);
         txtIdDenuncia.setOpaque(false);
 
         jLabel21.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
@@ -188,7 +190,7 @@ public class dlgRegistrarServicioPolicial extends javax.swing.JDialog {
         txtDelito.setEditable(false);
         txtDelito.setOpaque(false);
 
-        jButton2.setText("BUSCAR");
+        jButton2.setText("SELECCIONAR");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);

@@ -49,6 +49,11 @@ public class dlgReporteDenuncias extends javax.swing.JDialog {
         cargarDatos();
         cargarComboDelito();
         this.cboTipoDelito.addItem("--Seleccione--");
+        txtIdDelito.setVisible(false);
+        txtIdTipoDelito.setVisible(false);
+        txtIdSubTipoDelito.setVisible(false);
+        txtIdSubDetalleDelito.setVisible(false);
+        txtIdModa.setVisible(false);
     }
 
     /**

@@ -5,6 +5,7 @@
  */
 package com.cpyt.dao;
 
+import static com.cpyt.dao.DenunciaDAO.sessionFactory;
 import static com.cpyt.dao.GenericDAO.sessionFactory;
 import com.cpyt.entity.Delito;
 import com.cpyt.entity.Denuncia;
@@ -46,17 +47,30 @@ public class UsuarioDAO {
         return null;
     }
     
-    public Usuario consultarUsuario(String usuario,String password) {
+    public Integer consultarUsuario(String usuario,String password) {
 
         Session session = sessionFactory.openSession();
-        Query query = session.createQuery("from Usuario where usuario = ? and password = ?");
-        
+        Query query = session.createSQLQuery("select id_usua from usuario where usuario = ? and password = ?");
+        query.setParameter(0, usuario);
+        query.setParameter(1, password);
         List results = query.list();
         
         if(results.size()>0){
-         return (Usuario) results.get(0);
+         return (Integer) results.get(0);
         }
         return null;
+    }
+    
+    public List<Object> getUserLogin(String usuario,String password) {
+
+        Session session = sessionFactory.openSession();
+        Query query = session.createSQLQuery("select id_usua from usuario where usuario = ? and password = ?");
+
+        query.setParameter(0, usuario);
+        query.setParameter(1, password);
+        
+        List results = query.list();
+        return results;
     }
     
     public void updateUsuariosSinSession() {
@@ -71,10 +85,10 @@ public class UsuarioDAO {
 
     }
     
-    public void setUsuarioEnSession(Integer id) {
+    public void setUsuarioEnSession(String id) {
 
         Session session = sessionFactory.openSession();
-        Query query = session.createSQLQuery("update usuario set sesion=1 where = ?");  
+        Query query = session.createSQLQuery("update usuario set sesion = 1 where id_usua = ?");  
         query.setParameter(0,id);
         query.executeUpdate();
         Transaction tx = session.beginTransaction();

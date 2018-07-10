@@ -54,6 +54,12 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
         
         cargarComboDelito();
         this.cboTipoDelito.addItem("--Seleccione--");
+        txtIdDelito.setVisible(false);
+        txtIdTipoDelito.setVisible(false);
+        txtIdSubTipoDelito.setVisible(false);
+        txtIdSubDetalleDelito.setVisible(false);
+        txtIdModa.setVisible(false);
+        txtIdPersona.setVisible(false);
     }
 
     /**

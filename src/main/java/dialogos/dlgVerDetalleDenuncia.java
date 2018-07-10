@@ -64,7 +64,7 @@ public class dlgVerDetalleDenuncia extends javax.swing.JDialog {
         } 
          
         
-        
+        txtIdDenuncia.setVisible(false);
         cargarTable();
     }
 

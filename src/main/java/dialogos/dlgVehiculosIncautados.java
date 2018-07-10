@@ -33,6 +33,7 @@ public class dlgVehiculosIncautados extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         cargarDatos();
+        txtIdVehiculo.setVisible(false);
     }
 
     /**

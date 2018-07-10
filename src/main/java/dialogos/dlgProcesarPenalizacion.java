@@ -32,6 +32,7 @@ public class dlgProcesarPenalizacion extends javax.swing.JDialog {
     public dlgProcesarPenalizacion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        txtIdPerDen.setVisible(false);
     }
 
     /**

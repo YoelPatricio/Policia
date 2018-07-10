@@ -23,6 +23,7 @@ public class Login extends javax.swing.JDialog {
     /**
      * Creates new form Login
      */
+    UsuarioDAO ud=new UsuarioDAO();
     public Login(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -118,7 +119,7 @@ public class Login extends javax.swing.JDialog {
 
     private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            //ingresar();
+            ingresar();
         }
     }//GEN-LAST:event_txtPasswordKeyPressed
 
@@ -181,10 +182,9 @@ public class Login extends javax.swing.JDialog {
 
     private void ingresar() {
 
-        UsuarioDAO ud=new UsuarioDAO();
-        Usuario usu = new Usuario();
-        Principal principal= new Principal();
         
+        Usuario usu = new Usuario();
+                
         String usuario=txtUser.getText();
         String pass=txtPassword.getText();
         
@@ -200,13 +200,15 @@ public class Login extends javax.swing.JDialog {
             return;
             }
         }
-        usu = ud.consultarUsuario(usuario, pass);
+        //List<Object> uv = ud.getUserLogin(usuario, pass);
+        Integer idUsu = ud.consultarUsuario(usuario, pass);
         
-        if (usu != null) {
+        if (idUsu != null) {
             
             ud.updateUsuariosSinSession();
-            ud.setUsuarioEnSession(usu.getIdUsua());
-            
+            ud.setUsuarioEnSession(idUsu.toString());
+            Principal principal= new Principal();
+
             principal.setVisible(true);
             //principal.setLocationRelativeTo(null);
             //principal.setExtendedState(JFrame.MAXIMIZED_BOTH);

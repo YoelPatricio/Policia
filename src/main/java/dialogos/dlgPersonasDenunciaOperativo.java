@@ -39,6 +39,7 @@ public class dlgPersonasDenunciaOperativo extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         cargarDatos();
+        txtIdPer.setVisible(false);
     }
 
     /**

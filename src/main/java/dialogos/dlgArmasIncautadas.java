@@ -36,6 +36,7 @@ public class dlgArmasIncautadas extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         cargarDatos();
+        txtIdArma.setVisible(false);
     }
 
     /**

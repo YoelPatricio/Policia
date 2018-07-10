@@ -42,6 +42,7 @@ public class dlgRegistrarUsuario extends javax.swing.JDialog {
     public dlgRegistrarUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        txtIdPer.setVisible(false);
     }
 
     /**

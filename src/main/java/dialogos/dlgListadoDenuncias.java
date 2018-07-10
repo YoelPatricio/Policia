@@ -24,6 +24,7 @@ public class dlgListadoDenuncias extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         cargarDatos();
+        txtIdDenuncia.setVisible(false);
     }
 
     /**
