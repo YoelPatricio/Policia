@@ -10,11 +10,19 @@ import dialogos.*;
 import com.cpyt.dao.DenunciaDAO;
 import com.cpyt.dao.GenericDAO;
 import com.cpyt.dao.UsuarioDAO;
+import com.cpyt.entity.ArmaIncautada;
 import com.cpyt.entity.Denuncia;
+import com.cpyt.entity.Droga;
+import com.cpyt.entity.Municion;
+import com.cpyt.entity.Operativo;
+import com.cpyt.entity.Otro;
 import com.cpyt.entity.Persona;
 import com.cpyt.entity.ServicioPolicial;
 import com.cpyt.entity.Usuario;
+import com.cpyt.entity.VehiculoIncautado;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 import static principal.Principal.pnlPrincipal;
 
@@ -27,7 +35,14 @@ public class dlgRegistrarOperativo extends javax.swing.JDialog {
     /**
      * Creates new form persona
      */
-    public static String hola = "";
+    
+    public static List<VehiculoIncautado> vehiculoIncautadoList = new ArrayList<>();
+    public static List<ArmaIncautada> armasIncautadoList = new ArrayList<>();
+    public static List<Droga> drogasIncautadoList = new ArrayList<>();
+    public static List<Municion> municionesIncautadoList = new ArrayList<>();
+    public static List<Otro> otrosIncautadoList = new ArrayList<>();
+    public static List<Persona> personasList = new ArrayList<>();
+    
     public dlgRegistrarOperativo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -309,18 +324,19 @@ public class dlgRegistrarOperativo extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.vehiculoIncautadoList = new ArrayList<>();
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         GenericDAO generic = new GenericDAO();
         
-        ServicioPolicial sp = new ServicioPolicial();
+        Operativo oe = new Operativo();
         Persona per = new Persona();
         
         
         try {
-            generic.insert(sp);
+            generic.insert(oe);
             JOptionPane.showMessageDialog(rootPane, "Servicio Policial Grabado Exitosamente !");
             new CambiaPanel(pnlPrincipal, new paneles.pnlServicioPolicial());
             this.dispose();
@@ -332,23 +348,30 @@ public class dlgRegistrarOperativo extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         dlgVehiculosIncautados vi = new dlgVehiculosIncautados(null, rootPaneCheckingEnabled);
+        vi.vehiculoIncautadoList = this.vehiculoIncautadoList; 
         vi.setVisible(true);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        dlgArmasIncautadas ai = new dlgArmasIncautadas(null, rootPaneCheckingEnabled);
+        ai.armasIncautadoList = this.armasIncautadoList;
+        ai.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        dlgMunicionesIncautadas m = new dlgMunicionesIncautadas(null, rootPaneCheckingEnabled);
+        m.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        dlgDrogasIncautadas d = new dlgDrogasIncautadas(null, rootPaneCheckingEnabled);
+        d.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+       dlgOtrosIncautadas o = new dlgOtrosIncautadas(null, rootPaneCheckingEnabled);
+       o.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**

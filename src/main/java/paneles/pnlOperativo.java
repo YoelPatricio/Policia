@@ -6,6 +6,7 @@
 package paneles;
 
 import com.cpyt.dao.OperativoDAO;
+import dialogos.dlgRegistrarOperativo;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -129,7 +130,8 @@ public class pnlOperativo extends javax.swing.JPanel {
     }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        dlgRegistrarOperativo ro = new dlgRegistrarOperativo(null, true);
+        ro.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased

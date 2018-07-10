@@ -23,6 +23,9 @@
         <property name="estado" type="string">
             <column name="estado" length="50" not-null="true" />
         </property>
+        <property name="tipo" type="string">
+            <column name="tipo" length="50" not-null="true" />
+        </property>
         <set name="papeletas" table="papeleta" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_vehincau" not-null="true" />

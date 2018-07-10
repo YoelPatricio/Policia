@@ -17,6 +17,7 @@ public class VehiculoIncautado  implements java.io.Serializable {
      private String placa;
      private String descripcion;
      private String estado;
+     private String tipo;
      private Set papeletas = new HashSet(0);
      private Set<Papeleta> papeletaList;
 
@@ -24,19 +25,20 @@ public class VehiculoIncautado  implements java.io.Serializable {
     }
 
 	
-    public VehiculoIncautado(Operativo operativo, Vehiculo vehiculo, String placa, String descripcion, String estado) {
+    public VehiculoIncautado(Operativo operativo, Vehiculo vehiculo, String placa, String descripcion, String estado,String tipo) {
         this.operativo = operativo;
         this.vehiculo = vehiculo;
         this.placa = placa;
         this.descripcion = descripcion;
         this.estado = estado;
     }
-    public VehiculoIncautado(Operativo operativo, Vehiculo vehiculo, String placa, String descripcion, String estado, Set papeletas) {
+    public VehiculoIncautado(Operativo operativo, Vehiculo vehiculo, String placa, String descripcion, String estado,String tipo, Set papeletas) {
        this.operativo = operativo;
        this.vehiculo = vehiculo;
        this.placa = placa;
        this.descripcion = descripcion;
        this.estado = estado;
+       this.tipo = tipo;
        this.papeletas = papeletas;
     }
    
@@ -96,6 +98,14 @@ public class VehiculoIncautado  implements java.io.Serializable {
 
     public void setPapeletaList(Set<Papeleta> papeletaList) {
         this.papeletaList = papeletaList;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     
