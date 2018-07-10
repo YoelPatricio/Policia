@@ -5,12 +5,15 @@
  */
 package principal;
 
+import com.cpyt.dao.UsuarioDAO;
+import com.cpyt.entity.Usuario;
 import java.awt.Color;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import paneles.CambiaPanel;
@@ -25,7 +28,7 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
-    
+    Integer perfil = 0;
     public Principal() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
@@ -33,6 +36,12 @@ public class Principal extends javax.swing.JFrame {
         this.uno.setSelected(true);
         
         new CambiaPanel(pnlPrincipal, new paneles.pnlHome());
+        
+        UsuarioDAO ud = new UsuarioDAO();
+        Usuario usu = new Usuario();
+        usu = ud.getUserInSession();
+        
+        perfil = usu.getPerfil().getIdPerfil();
         
     }
 
@@ -548,6 +557,10 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_unoMousePressed
 
     private void tresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tresActionPerformed
+        if(perfil == 2){
+            JOptionPane.showMessageDialog(rootPane, "No tiene permisos para este módulo");
+            return;
+        }
         new CambiaPanel(pnlPrincipal, new paneles.pnlOperativo());
         if(this.tres.isSelected()){
             this.tres.setColorNormal(new Color(204,204,204));
@@ -611,6 +624,10 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_dosMousePressed
 
     private void dosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dosActionPerformed
+        if(perfil == 2){
+            JOptionPane.showMessageDialog(rootPane, "No tiene permisos para este módulo");
+            return;
+        }
         new CambiaPanel(pnlPrincipal, new paneles.pnlDenuncia());
         if(this.dos.isSelected()){
             this.dos.setColorNormal(new Color(204,204,204));
@@ -672,6 +689,10 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_ochoMousePressed
 
     private void ochoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ochoActionPerformed
+        if(perfil == 2){
+            JOptionPane.showMessageDialog(rootPane, "No tiene permisos para este módulo");
+            return;
+        }
         new CambiaPanel(pnlPrincipal, new paneles.pnlPenalizacion());
         if(this.ocho.isSelected()){
             this.uno.setColorNormal(new Color(239,238,244));
@@ -724,7 +745,11 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_sieteMousePressed
 
     private void sieteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sieteActionPerformed
-        new CambiaPanel(pnlPrincipal, new paneles.pnlIOS());
+        if(perfil == 2){
+            JOptionPane.showMessageDialog(rootPane, "No tiene permisos para este módulo");
+            return;
+        }
+        new CambiaPanel(pnlPrincipal, new paneles.pnlUsuarios());
         if(this.siete.isSelected()){
             this.uno.setColorNormal(new Color(239,238,244));
             this.uno.setColorHover(new Color(204,204,204));
@@ -776,7 +801,11 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_seisMousePressed
 
     private void seisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seisActionPerformed
-        new CambiaPanel(pnlPrincipal, new paneles.pnlAndroid());
+        if(perfil == 2){
+            JOptionPane.showMessageDialog(rootPane, "No tiene permisos para este módulo");
+            return;
+        }
+        new CambiaPanel(pnlPrincipal, new paneles.pnlPersonas());
         if(this.seis.isSelected()){
             this.uno.setColorNormal(new Color(239,238,244));
             this.uno.setColorHover(new Color(204,204,204));
@@ -817,7 +846,13 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_seisActionPerformed
 
     private void cincoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cincoActionPerformed
-        new CambiaPanel(pnlPrincipal, new paneles.pnlMarket());
+        
+        if(perfil == 1){
+            JOptionPane.showMessageDialog(rootPane, "No tiene permisos para este módulo");
+            return;
+        }
+        
+        new CambiaPanel(pnlPrincipal, new paneles.pnlReportes());
         if(this.cinco.isSelected()){
             this.uno.setColorNormal(new Color(239,238,244));
             this.uno.setColorHover(new Color(204,204,204));
@@ -880,6 +915,10 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_cuatroMousePressed
 
     private void cuatroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuatroActionPerformed
+        if(perfil == 2){
+            JOptionPane.showMessageDialog(rootPane, "No tiene permisos para este módulo");
+            return;
+        }
         new CambiaPanel(pnlPrincipal, new paneles.pnlServicioPolicial());
         if(this.cuatro.isSelected()){
             this.uno.setColorNormal(new Color(239,238,244));

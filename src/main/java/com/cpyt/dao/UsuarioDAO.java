@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 /**
@@ -43,6 +44,44 @@ public class UsuarioDAO {
          return (Usuario) results.get(0);
         }
         return null;
+    }
+    
+    public Usuario consultarUsuario(String usuario,String password) {
+
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("from Usuario where usuario = ? and password = ?");
+        
+        List results = query.list();
+        
+        if(results.size()>0){
+         return (Usuario) results.get(0);
+        }
+        return null;
+    }
+    
+    public void updateUsuariosSinSession() {
+
+        Session session = sessionFactory.openSession();
+        Query query = session.createSQLQuery("update usuario set sesion=0");       
+        query.executeUpdate();
+        Transaction tx = session.beginTransaction();
+        tx.commit();
+        session.close();
+        
+
+    }
+    
+    public void setUsuarioEnSession(Integer id) {
+
+        Session session = sessionFactory.openSession();
+        Query query = session.createSQLQuery("update usuario set sesion=1 where = ?");  
+        query.setParameter(0,id);
+        query.executeUpdate();
+        Transaction tx = session.beginTransaction();
+        tx.commit();
+        session.close();
+        
+
     }
     
    

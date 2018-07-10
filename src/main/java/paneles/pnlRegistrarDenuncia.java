@@ -822,6 +822,9 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
             this.cboTipoDelito.setEnabled(false);
             this.cboTipoDelito.removeAllItems();
             this.cboTipoDelito.addItem("No existe");
+            txtIdTipoDelito.setText("0");
+            txtIdSubTipoDelito.setText("0");
+            txtIdSubDetalleDelito.setText("0");
         }else{
             this.cboTipoDelito.setEnabled(true);
         }
@@ -846,6 +849,9 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
             this.cboSubTipoDelito.setEnabled(false);
             this.cboSubTipoDelito.removeAllItems();
             this.cboSubTipoDelito.addItem("No existe");
+            
+            txtIdSubTipoDelito.setText("0");
+            txtIdSubDetalleDelito.setText("0");
         }else{
             this.cboSubTipoDelito.setEnabled(true);
         }
@@ -870,6 +876,9 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
             this.cboSubDetalleDelito.setEnabled(false);
             this.cboSubDetalleDelito.removeAllItems();
             this.cboSubDetalleDelito.addItem("No existe");
+            
+            
+            txtIdSubDetalleDelito.setText("0");
         }else{
             this.cboSubDetalleDelito.setEnabled(true);
         }

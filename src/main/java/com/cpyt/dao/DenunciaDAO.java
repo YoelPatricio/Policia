@@ -106,6 +106,8 @@ public class DenunciaDAO {
         return null;
     }
     
+    
+    
     public Denuncia getDenunciaPorId(Integer id) {
 
         Session session = sessionFactory.openSession();
@@ -132,6 +134,91 @@ public class DenunciaDAO {
          return per = (Persona) results.get(0);
         }
         return null;
+    }
+    
+    public List<Object> getDenunciasReporte(String idDelito,String idTipoDelito,String idSubTiDel,String idSudDetDel,String idModa,String desde,String hasta) {
+
+        Session session = sessionFactory.openSession();
+        String sql = "select d.id_denun,del.nombre as nombre1,td.nombre as nombre2,std.nombre as nombre3,sdd.nombre as nombre4,"
+                + " m.nombre as nombre5,d.fech_hecho "
+                + " from denuncia d "
+                + " left join delito del on d.id_deli=del.id_deli "
+                + " left join tipo_delito td on d.id_tdelito=td.id_tdeli "
+                + " left join subtipo_delito std on d.id_stdelito=std.id_stdelito "
+                + " left join subdetalle_delito sdd on d.id_sddelito=sdd.id_sddelito "
+                + " left join modalidad m on d.id_moda=m.id_moda "
+                + " where 1=1 ";
+        
+        if(!idDelito.equalsIgnoreCase("0")){
+            sql = sql + " and d.id_deli="+idDelito;
+        }
+        
+        if(!idTipoDelito.equalsIgnoreCase("0")){
+            sql = sql + " and d.id_tdelito="+idTipoDelito;
+        }
+        
+        if(!idSubTiDel.equalsIgnoreCase("0")){
+            sql = sql + " and d.id_stdelito="+idSubTiDel;
+        }
+        if(!idSudDetDel.equalsIgnoreCase("0")){
+            sql = sql + " and d.id_sddelito="+idSudDetDel;
+        }
+        if(!idModa.equalsIgnoreCase("0")){
+            sql = sql + " and d.id_moda="+idModa;
+        }
+        
+        if(desde!=null && hasta!=null){
+            sql=sql+"and d.fech_hecho BETWEEN DATE_FORMAT('"+desde+"',\"%Y-%m-%d\") AND DATE_FORMAT('"+hasta+"',\"%Y-%m-%d\") ";
+        }
+        
+        
+        
+        Query query = session.createSQLQuery(sql);
+
+        
+        List results = query.list();
+        return results;
+    }
+    
+    public List<Object> getDenunciasAfectado(String afectado,String desde,String hasta) {
+
+        Session session = sessionFactory.openSession();
+        String sql = "select d.id_denun,d.afectado,d.fech_hecho "
+                + " from denuncia d "
+                + " where 1=1 ";
+        
+        if(!afectado.equalsIgnoreCase("TODOS")){
+            sql = sql + " and d.afectado='"+afectado+"'";
+        }
+        
+        
+        if(desde!=null && hasta!=null){
+            sql=sql+"and d.fech_hecho BETWEEN DATE_FORMAT('"+desde+"',\"%Y-%m-%d\") AND DATE_FORMAT('"+hasta+"',\"%Y-%m-%d\") ";
+        }
+        
+        
+        
+        Query query = session.createSQLQuery(sql);
+
+        
+        List results = query.list();
+        return results;
+    }
+    
+    public List<Object> getPersonasEnDenuncia(String cadena) {
+
+        Session session = sessionFactory.openSession();
+       
+        
+        Query query = session.createSQLQuery("select pd.id_perden,p.dni,p.apel_nomb,pd.situacion,pd.estado "
+                + " from persona_denuncia pd "
+                + " inner join persona p on pd.id_perso=p.id_perso "
+                + " where p.dni like ? or p.apel_nomb like ?");
+        query.setParameter(0, "%"+cadena+"%");
+        query.setParameter(1, "%"+cadena+"%");
+        
+        List results = query.list();
+        return results;
     }
     
     public static void main(String[] args) {

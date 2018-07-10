@@ -7,6 +7,8 @@ package principal;
 
 
 
+import com.cpyt.dao.UsuarioDAO;
+import com.cpyt.entity.Usuario;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JFrame;
@@ -101,7 +103,7 @@ public class Login extends javax.swing.JDialog {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         
-        //ingresar();
+        ingresar();
         
         
         
@@ -177,13 +179,13 @@ public class Login extends javax.swing.JDialog {
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 
-    /*private void ingresar() {
+    private void ingresar() {
 
         UsuarioDAO ud=new UsuarioDAO();
-        RolDAO r=new RolDAO();
-        frmPrincipal principal= new frmPrincipal();
+        Usuario usu = new Usuario();
+        Principal principal= new Principal();
         
-        String usu=txtUser.getText();
+        String usuario=txtUser.getText();
         String pass=txtPassword.getText();
         
         if(pass.equals("") && usu.equals("")){
@@ -198,17 +200,17 @@ public class Login extends javax.swing.JDialog {
             return;
             }
         }
-        Integer idRol=ud.validarUsuario(usu, pass);
+        usu = ud.consultarUsuario(usuario, pass);
         
-        if (idRol != 0) {
+        if (usu != null) {
             
-            List<Integer> perm =r.listPermisos(idRol);
-            principal.activarModulos(perm);
+            ud.updateUsuariosSinSession();
+            ud.setUsuarioEnSession(usu.getIdUsua());
+            
             principal.setVisible(true);
-            principal.setLocationRelativeTo(null);
-            principal.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            userInSession();
-            dispose();          
+            //principal.setLocationRelativeTo(null);
+            //principal.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            this.dispose();          
             
         }else{
             JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrectos !");
@@ -216,7 +218,7 @@ public class Login extends javax.swing.JDialog {
 
     }
     
-    public void userInSession(){
+    /*public void userInSession(){
         String user=txtUser.getText();
         String pass=txtPassword.getText();
         
