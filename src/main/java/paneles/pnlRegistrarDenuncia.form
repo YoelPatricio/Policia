@@ -701,7 +701,7 @@
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="5">
                     <StringItem index="0" value="--SELECCIONE--"/>
-                    <StringItem index="1" value="DENUNCIANTE Y VICTIMA"/>
+                    <StringItem index="1" value="DENUN. Y VICT."/>
                     <StringItem index="2" value="DENUNCIANTE"/>
                     <StringItem index="3" value="DENUNCIADO"/>
                     <StringItem index="4" value="VICTIMA"/>
@@ -715,11 +715,12 @@
             <Component class="javax.swing.JComboBox" name="cboEstado">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
+                  <StringArray count="5">
                     <StringItem index="0" value="--SELECCIONE--"/>
                     <StringItem index="1" value="CITADO"/>
                     <StringItem index="2" value="DETENIDO"/>
                     <StringItem index="3" value="NO HABIDO"/>
+                    <StringItem index="4" value="PENALIZADO"/>
                   </StringArray>
                 </Property>
               </Properties>

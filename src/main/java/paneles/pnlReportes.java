@@ -6,27 +6,26 @@
 package paneles;
 
 import com.cpyt.dao.DenunciaDAO;
-import com.cpyt.entity.Denuncia;
-import dialogos.dfdfdf;
-import dialogos.dlgVerDetalleDenuncia;
+import com.cpyt.dao.PenalizacionDAO;
+import com.cpyt.dao.ServicioPolicialDAO;
+import com.cpyt.entity.ServicioPolicial;
+import dialogos.dlgProcesarPenalizacion;
+import dialogos.dlgRegistrarServicioPolicial;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import principal.Principal;
 
 /**
  *
  * @author RojeruSan
  */
-public class pnlDenuncia extends javax.swing.JPanel {
+public class pnlReportes extends javax.swing.JPanel {
 
     /**
      * Creates new form pnlHome
      */
     DefaultTableModel dtm;
-    public pnlDenuncia() {
+    public pnlReportes() {
         initComponents();
-        
         cargarDatos();
     }
 
@@ -39,7 +38,7 @@ public class pnlDenuncia extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtNameBuscar = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -48,16 +47,16 @@ public class pnlDenuncia extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        txtNameBuscar.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        txtNameBuscar.setForeground(new java.awt.Color(38, 86, 186));
-        txtNameBuscar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtNameBuscar.setText("BUSCAR :");
+        jLabel5.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(38, 86, 186));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("BUSCAR :");
 
         jLabel7.setFont(new java.awt.Font("Roboto", 1, 48)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(128, 128, 131));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img1/collection.png"))); // NOI18N
-        jLabel7.setText("DENUNCIAS");
+        jLabel7.setText("PENALIZACIÓN");
 
         txtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,9 +64,6 @@ public class pnlDenuncia extends javax.swing.JPanel {
             }
         });
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtBuscarKeyPressed(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyReleased(evt);
             }
@@ -84,19 +80,14 @@ public class pnlDenuncia extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Código", "Delito", "Tipo Delito", "SubTipo Delito", "Modalidad", "Fecha Registro", "Hora Registro", "Fecha Hecho", "Hora Hecho", "Afectado", "Dirección"
+                "Código", "Persona Procesada", "Fiscal", "Sentencia", "Tiempo", "Fecha Liberación"
             }
         ));
         tableDatos.setRowHeight(20);
         tableDatos.setSelectionBackground(new java.awt.Color(0, 51, 255));
-        tableDatos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableDatosMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(tableDatos);
 
-        jButton1.setText("REGISTRAR");
+        jButton1.setText("PROCESAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -121,10 +112,9 @@ public class pnlDenuncia extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtNameBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(32, 32, 32))))
         );
         layout.setVerticalGroup(
@@ -134,7 +124,7 @@ public class pnlDenuncia extends javax.swing.JPanel {
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNameBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -149,48 +139,31 @@ public class pnlDenuncia extends javax.swing.JPanel {
     }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
-        new CambiaPanel(Principal.pnlPrincipal, new paneles.pnlRegistrarDenuncia());
+        dlgProcesarPenalizacion dpp = new dlgProcesarPenalizacion(null, true);
+        dpp.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
-        
-    }//GEN-LAST:event_txtBuscarKeyPressed
-
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
-       cargarDatos();
+        cargarDatos();
     }//GEN-LAST:event_txtBuscarKeyReleased
-
-    private void tableDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDatosMouseClicked
-        /*if(evt.getClickCount()==2){
-            
-            int selection = tableDatos.getSelectedRow();
-            
-            
-            dfdfdf sd = new dfdfdf(null, true);
-            sd.label.setText(String.valueOf(tableDatos.getValueAt(selection, 0)));
-            sd.setVisible(true);
-            
-        }*/
-    }//GEN-LAST:event_tableDatosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableDatos;
     private javax.swing.JTextField txtBuscar;
-    public static javax.swing.JLabel txtNameBuscar;
     // End of variables declaration//GEN-END:variables
 
     public void cargarDatos() {
         
-        DenunciaDAO dao = new DenunciaDAO();
+        PenalizacionDAO p = new PenalizacionDAO();
         
-        List<Object> datos = dao.getDenunciasList(txtBuscar.getText());
+        List<Object> datos = p.getPersonaProceso(txtBuscar.getText());
 
-        Object[][] matriz = new Object[datos.size()][12];
+        Object[][] matriz = new Object[datos.size()][8];
         Object[] s = new Object[]{};
         for (int i = 0; i < datos.size(); i++) {
             
@@ -205,15 +178,14 @@ public class pnlDenuncia extends javax.swing.JPanel {
             matriz[i][5] = s[5];
             matriz[i][6] = s[6];
             matriz[i][7] = s[7];
-            matriz[i][8] = s[8];
-            matriz[i][9] = s[9];
-            matriz[i][10] = s[10];
-            matriz[i][11] = s[11];
+            
 
         }
         Object[][] data = matriz;
-        String[] cabecera = {"Código", "Delito","Tipo Delito", "SubTipo Delito","SubDetalle Delito", "Modalidad", "Fecha Registro","Hora Registro","Fecha Hecho","Hora Hecho","Afectado","Dirección"};
+        String[] cabecera = {"Código", "DNI del Procesado","Apellidos y nombres del procesado","Delito", "Fical","Sentencia", "Tiempo","Fecha de Liberación"};
         dtm = new DefaultTableModel(data, cabecera);
         tableDatos.setModel(dtm);
     }
+
+
 }

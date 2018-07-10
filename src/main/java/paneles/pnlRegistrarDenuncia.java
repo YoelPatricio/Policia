@@ -7,6 +7,7 @@ package paneles;
 
 import com.cpyt.dao.DenunciaDAO;
 import com.cpyt.dao.GenericDAO;
+import com.cpyt.dao.UsuarioDAO;
 import com.cpyt.entity.Delito;
 import com.cpyt.entity.Denuncia;
 import com.cpyt.entity.Modalidad;
@@ -15,13 +16,24 @@ import com.cpyt.entity.PersonaDenuncia;
 import com.cpyt.entity.SubdetalleDelito;
 import com.cpyt.entity.SubtipoDelito;
 import com.cpyt.entity.TipoDelito;
+import com.cpyt.entity.Usuario;
 import dialogos.dlgRegistrarPersona;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import principal.Principal;
 
 /**
@@ -221,9 +233,9 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Datos de la Persona");
 
-        cboSituacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--SELECCIONE--", "DENUNCIANTE Y VICTIMA", "DENUNCIANTE", "DENUNCIADO", "VICTIMA" }));
+        cboSituacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--SELECCIONE--", "DENUN. Y VICT.", "DENUNCIANTE", "DENUNCIADO", "VICTIMA" }));
 
-        cboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--SELECCIONE--", "CITADO", "DETENIDO", "NO HABIDO" }));
+        cboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--SELECCIONE--", "CITADO", "DETENIDO", "NO HABIDO", "PENALIZADO" }));
 
         btnAgregarPersona.setText("AGREGAR");
         btnAgregarPersona.addActionListener(new java.awt.event.ActionListener() {
@@ -708,7 +720,16 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
         
         
         g.insert(den);
-        JOptionPane.showMessageDialog(null, "Denuncia Grabado Exitosamente !");
+        //JOptionPane.showMessageDialog(null, "Denuncia Grabado Exitosamente !");
+        int op = JOptionPane.showConfirmDialog(null, "Denuncia Grabado Exitosamente, ¿Desea imprimir la Denuncia?","Éxito",JOptionPane.YES_NO_OPTION);
+        if(op == JOptionPane.YES_OPTION){
+            imprimirReporteDenuncia();
+            new CambiaPanel(Principal.pnlPrincipal, new paneles.pnlDenuncia());
+        }else{
+            new CambiaPanel(Principal.pnlPrincipal, new paneles.pnlDenuncia());
+        }
+        
+        
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al grabar la Denuncia !");
         }
@@ -904,5 +925,66 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
         tableDatos.setModel(dtm);
         
 
+    }
+
+    
+    public void imprimirReporteDenuncia(){
+        
+        Integer idDenun = g.ultimoID("idDenun", "Denuncia");
+        DenunciaDAO dd = new DenunciaDAO();
+        
+        Denuncia de = dd.getDenunciaPorId(idDenun);
+        
+        try {
+            String master = System.getProperty("user.dir") ;
+            //File rep=new File("src/report/report1.jasper");
+            File rep=new File(master+"/src/main/java/com/cpyt/report/reportDenuncia.jasper");
+            JasperReport file =(JasperReport)JRLoader.loadObject(rep);
+            
+            HashMap para= new HashMap();
+            
+            para.put("delito", de.getDelito().getNombre());
+            para.put("tdelito", de.getTipoDelito().getNombre());
+            if(de.getSubtipoDelito()!=null){
+                para.put("stdelito", de.getSubtipoDelito().getNombre());
+            }
+            if(de.getSubdetalleDelito()!=null){
+                para.put("sddelito", de.getSubdetalleDelito().getNombre());
+            }
+            if(de.getModalidad()!=null){
+                para.put("modalidad", de.getModalidad().getNombre());
+            }
+            para.put("afectado", de.getAfectado());
+            para.put("direccion", de.getDireccion());
+            para.put("fecha", de.getFechHecho());
+            para.put("hora", de.getHoraHecho());
+            para.put("descripcion", de.getDescripcion());
+            
+            Set<PersonaDenuncia> pd = de.getPersonaDenunciaList();
+        
+            Iterator iter = pd.iterator();
+            int i = 1;
+            while (iter.hasNext()) {
+                PersonaDenuncia ped = (PersonaDenuncia) iter.next();
+                para.put("dni_"+i, ped.getPersona().getDni());
+                para.put("nombre_"+i, ped.getPersona().getApelNomb());
+                para.put("situacion_"+i, ped.getSituacion());
+                para.put("estado_"+i, ped.getEstado());
+                i++;
+            } 
+            
+            UsuarioDAO ud = new UsuarioDAO();
+            Usuario usu = ud.getUserInSession();
+            para.put("usuario", usu.getPersona().getApelNomb());
+            para.put("fecharegistro", new Date());
+            
+         
+            JasperPrint jprint = JasperFillManager.fillReport(file,para,new JREmptyDataSource());
+            
+            JasperViewer.viewReport(jprint,false);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error en la generación del documento");
+        }
     }
 }

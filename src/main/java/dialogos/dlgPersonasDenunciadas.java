@@ -5,24 +5,23 @@
  */
 package dialogos;
 
-import com.cpyt.dao.ArmaDAO;
-import com.cpyt.dao.PapeletaDAO;
-import com.cpyt.dao.VehiculoDAO;
+import com.cpyt.dao.DenunciaDAO;
+import com.cpyt.dao.PersonaDenunciaDAO;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
 
 /**
  *
  * @author Yoel
  */
-public class dlgListadoArmas extends javax.swing.JDialog {
+public class dlgPersonasDenunciadas extends javax.swing.JDialog {
 
     /**
-     * Creates new form dlgListadoPapeletas
+     * Creates new form dlgListadoDenuncias
      */
     DefaultTableModel dtm;
-    public dlgListadoArmas(java.awt.Frame parent, boolean modal) {
+    public dlgPersonasDenunciadas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         cargarDatos();
@@ -38,66 +37,20 @@ public class dlgListadoArmas extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        txtNameBuscar = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableDatos = new javax.swing.JTable();
-        txtBuscar = new javax.swing.JTextField();
-        txtNameBuscar = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel7.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(128, 128, 131));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Armas");
-
-        tableDatos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        tableDatos = new javax.swing.JTable(){
-            public boolean isCellEditable(int rowIndex,int colIndex){
-                return false;
-            }
-        };
-        tableDatos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableDatosMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                tableDatosMouseEntered(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tableDatos);
+        txtNameBuscar.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        txtNameBuscar.setForeground(new java.awt.Color(38, 86, 186));
+        txtNameBuscar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtNameBuscar.setText("BUSCAR :");
 
         txtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,37 +66,60 @@ public class dlgListadoArmas extends javax.swing.JDialog {
             }
         });
 
-        txtNameBuscar.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        txtNameBuscar.setForeground(new java.awt.Color(38, 86, 186));
-        txtNameBuscar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtNameBuscar.setText("BUSCAR :");
+        tableDatos = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex,int colIndex){
+                return false;
+            }
+        };
+        tableDatos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tableDatos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tableDatos.setRowHeight(20);
+        tableDatos.setSelectionBackground(new java.awt.Color(0, 51, 255));
+        tableDatos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableDatosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableDatos);
+
+        jLabel7.setFont(new java.awt.Font("Roboto", 1, 48)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(128, 128, 131));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("DENUNCIADOS");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 968, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtNameBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtNameBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 32, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -154,7 +130,9 @@ public class dlgListadoArmas extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -173,22 +151,23 @@ public class dlgListadoArmas extends javax.swing.JDialog {
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void tableDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDatosMouseClicked
-        if(evt.getClickCount()==2){
+            if(evt.getClickCount()==2){
             
             int selection = tableDatos.getSelectedRow();
             /*txtCodigo.setText(String.valueOf(tableDatos.getValueAt(selection, 0)));*/
-            dlgArmasIncautadas.txtIdArma.setText(String.valueOf(tableDatos.getValueAt(selection, 0)));
-            dlgArmasIncautadas.txtMarca.setText(String.valueOf(tableDatos.getValueAt(selection, 1)));
-            dlgArmasIncautadas.txtDescArma.setText(String.valueOf(tableDatos.getValueAt(selection, 2)));
-
+            dlgProcesarPenalizacion.txtIdPerDen.setText(String.valueOf(tableDatos.getValueAt(selection, 0)));
+            dlgProcesarPenalizacion.txtDNI.setText(String.valueOf(tableDatos.getValueAt(selection, 1)));
+            dlgProcesarPenalizacion.txtApellidosNombre.setText(String.valueOf(tableDatos.getValueAt(selection, 2)));
+            dlgProcesarPenalizacion.txtDelito.setText(String.valueOf(tableDatos.getValueAt(selection, 3)));
+            dlgProcesarPenalizacion.txtsituacion.setText(String.valueOf(tableDatos.getValueAt(selection, 4)));
+            dlgProcesarPenalizacion.txtEstado.setText(String.valueOf(tableDatos.getValueAt(selection, 5)));
+            
+           
+            
             this.dispose();
             
         }
     }//GEN-LAST:event_tableDatosMouseClicked
-
-    private void tableDatosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDatosMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tableDatosMouseEntered
 
     /**
      * @param args the command line arguments
@@ -207,35 +186,21 @@ public class dlgListadoArmas extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(dlgListadoArmas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(dlgPersonasDenunciadas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(dlgListadoArmas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(dlgPersonasDenunciadas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(dlgListadoArmas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(dlgPersonasDenunciadas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(dlgListadoArmas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(dlgPersonasDenunciadas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                dlgListadoArmas dialog = new dlgListadoArmas(new javax.swing.JFrame(), true);
+                dlgPersonasDenunciadas dialog = new dlgPersonasDenunciadas(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -256,12 +221,13 @@ public class dlgListadoArmas extends javax.swing.JDialog {
     public static javax.swing.JLabel txtNameBuscar;
     // End of variables declaration//GEN-END:variables
 
-    private void cargarDatos() {
-        ArmaDAO dao = new ArmaDAO();
+    public void cargarDatos() {
         
-        List<Object> datos = dao.getArmas(txtBuscar.getText());
+        PersonaDenunciaDAO dao = new PersonaDenunciaDAO();
+        
+        List<Object> datos = dao.getPersonaDenuncia(txtBuscar.getText());
 
-        Object[][] matriz = new Object[datos.size()][4];
+        Object[][] matriz = new Object[datos.size()][6];
         Object[] s = new Object[]{};
         for (int i = 0; i < datos.size(); i++) {
             
@@ -271,14 +237,15 @@ public class dlgListadoArmas extends javax.swing.JDialog {
             matriz[i][0] = s[0];
             matriz[i][1] = s[1];
             matriz[i][2] = s[2];
+            matriz[i][3] = s[3];
+            matriz[i][4] = s[4];
+            matriz[i][5] = s[5];
+           
 
         }
         Object[][] data = matriz;
-        String[] cabecera = {"Código", "Marca","Descripción"};
+        String[] cabecera = {"Código", "DNI","Apellidos y Nombres", "Delito","Situación","Estado"};
         dtm = new DefaultTableModel(data, cabecera);
         tableDatos.setModel(dtm);
-
     }
-    
-    
 }

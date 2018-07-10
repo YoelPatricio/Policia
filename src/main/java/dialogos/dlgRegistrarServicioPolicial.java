@@ -12,10 +12,21 @@ import com.cpyt.dao.GenericDAO;
 import com.cpyt.dao.UsuarioDAO;
 import com.cpyt.entity.Denuncia;
 import com.cpyt.entity.Persona;
+import com.cpyt.entity.PersonaDenuncia;
 import com.cpyt.entity.ServicioPolicial;
 import com.cpyt.entity.Usuario;
+import java.io.File;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import static principal.Principal.pnlPrincipal;
 
 /**
@@ -417,8 +428,9 @@ public class dlgRegistrarServicioPolicial extends javax.swing.JDialog {
         
         try {
             generic.insert(sp);
-            JOptionPane.showMessageDialog(rootPane, "Servicio Policial Grabado Exitosamente !");
+            JOptionPane.showMessageDialog(rootPane, "Servicio Policial Grabado Exitosamente, Se generará el documento.. !");
             new CambiaPanel(pnlPrincipal, new paneles.pnlServicioPolicial());
+            imprimirReporteDenuncia();
             this.dispose();
             
         } catch (Exception e) {
@@ -512,4 +524,63 @@ public class dlgRegistrarServicioPolicial extends javax.swing.JDialog {
     public static javax.swing.JTextField txtsubtipodelito;
     public static javax.swing.JTextField txttipodelito;
     // End of variables declaration//GEN-END:variables
+
+    public void imprimirReporteDenuncia(){
+        
+        Integer idDenun = Integer.parseInt(txtIdDenuncia.getText());
+        DenunciaDAO dd = new DenunciaDAO();
+        
+        Denuncia de = dd.getDenunciaPorId(idDenun);
+        
+        try {
+            String master = System.getProperty("user.dir") ;
+            //File rep=new File("src/report/report1.jasper");
+            File rep=new File(master+"/src/main/java/com/cpyt/report/reportDenuncia.jasper");
+            JasperReport file =(JasperReport)JRLoader.loadObject(rep);
+            
+            HashMap para= new HashMap();
+            
+            para.put("delito", de.getDelito().getNombre());
+            para.put("tdelito", de.getTipoDelito().getNombre());
+            if(de.getSubtipoDelito()!=null){
+                para.put("stdelito", de.getSubtipoDelito().getNombre());
+            }
+            if(de.getSubdetalleDelito()!=null){
+                para.put("sddelito", de.getSubdetalleDelito().getNombre());
+            }
+            if(de.getModalidad()!=null){
+                para.put("modalidad", de.getModalidad().getNombre());
+            }
+            para.put("afectado", de.getAfectado());
+            para.put("direccion", de.getDireccion());
+            para.put("fecha", de.getFechHecho());
+            para.put("hora", de.getHoraHecho());
+            para.put("descripcion", de.getDescripcion());
+            
+            Set<PersonaDenuncia> pd = de.getPersonaDenunciaList();
+        
+            Iterator iter = pd.iterator();
+            int i = 1;
+            while (iter.hasNext()) {
+                PersonaDenuncia ped = (PersonaDenuncia) iter.next();
+                para.put("dni_"+i, ped.getPersona().getDni());
+                para.put("nombre_"+i, ped.getPersona().getApelNomb());
+                para.put("situacion_"+i, ped.getSituacion());
+                para.put("estado_"+i, ped.getEstado());
+                i++;
+            }
+            
+            UsuarioDAO ud = new UsuarioDAO();
+            Usuario usu = ud.getUserInSession();
+            para.put("usuario", usu.getPersona().getApelNomb());
+            para.put("fecharegistro", new Date());
+         
+            JasperPrint jprint = JasperFillManager.fillReport(file,para,new JREmptyDataSource());
+            
+            JasperViewer.viewReport(jprint,false);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Ocurrio un error en la generación del documento");
+        }
+    }
 }

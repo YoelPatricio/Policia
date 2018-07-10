@@ -10,6 +10,7 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import paneles.CambiaPanel;
@@ -32,6 +33,7 @@ public class Principal extends javax.swing.JFrame {
         this.uno.setSelected(true);
         
         new CambiaPanel(pnlPrincipal, new paneles.pnlHome());
+        
     }
 
     /**
@@ -51,14 +53,13 @@ public class Principal extends javax.swing.JFrame {
         PROCESOS = new javax.swing.JLabel();
         tres = new rsbuttom.RSButtonMetro();
         dos = new rsbuttom.RSButtonMetro();
-        cinco = new rsbuttom.RSButtonMetro();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        cinco = new rsbuttom.RSButtonMetro();
         ocho = new rsbuttom.RSButtonMetro();
         siete = new rsbuttom.RSButtonMetro();
         seis = new rsbuttom.RSButtonMetro();
         cuatro = new rsbuttom.RSButtonMetro();
-        txtIDDENUNCIA = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -69,6 +70,8 @@ public class Principal extends javax.swing.JFrame {
         pnlPrincipal = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Comisaria PNP Pativilca");
+        setIconImage(getIconImage());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new java.awt.GridBagLayout());
@@ -117,7 +120,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(41, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(PROCESOS)
                 .addContainerGap())
         );
@@ -170,6 +173,12 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        jPanel5.setBackground(new java.awt.Color(239, 238, 244));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(128, 128, 131));
+        jLabel3.setText("MANTENIMIENTOS");
+
         cinco.setBackground(new java.awt.Color(239, 238, 244));
         cinco.setForeground(new java.awt.Color(128, 128, 131));
         cinco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/market.png"))); // NOI18N
@@ -194,12 +203,6 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        jPanel5.setBackground(new java.awt.Color(239, 238, 244));
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(128, 128, 131));
-        jLabel3.setText("MANTENIMIENTOS");
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -208,11 +211,13 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addContainerGap(36, Short.MAX_VALUE))
+            .addComponent(cinco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+                .addComponent(cinco, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addContainerGap())
         );
@@ -220,7 +225,7 @@ public class Principal extends javax.swing.JFrame {
         ocho.setBackground(new java.awt.Color(239, 238, 244));
         ocho.setForeground(new java.awt.Color(128, 128, 131));
         ocho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/web.png"))); // NOI18N
-        ocho.setText("Vehiculos");
+        ocho.setText("Penalización");
         ocho.setColorHover(new java.awt.Color(204, 204, 204));
         ocho.setColorNormal(new java.awt.Color(239, 238, 244));
         ocho.setColorPressed(new java.awt.Color(204, 204, 204));
@@ -244,7 +249,7 @@ public class Principal extends javax.swing.JFrame {
         siete.setBackground(new java.awt.Color(239, 238, 244));
         siete.setForeground(new java.awt.Color(128, 128, 131));
         siete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ios.png"))); // NOI18N
-        siete.setText("Armas");
+        siete.setText("Usuarios");
         siete.setColorHover(new java.awt.Color(204, 204, 204));
         siete.setColorNormal(new java.awt.Color(239, 238, 244));
         siete.setColorPressed(new java.awt.Color(204, 204, 204));
@@ -313,8 +318,6 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        txtIDDENUNCIA.setText("jLabel1");
-
         javax.swing.GroupLayout pnlMenuLayout = new javax.swing.GroupLayout(pnlMenu);
         pnlMenu.setLayout(pnlMenuLayout);
         pnlMenuLayout.setHorizontalGroup(
@@ -329,19 +332,14 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(dos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tres, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cuatro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cinco, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(uno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(uno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(pnlMenuLayout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(txtIDDENUNCIA)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlMenuLayout.setVerticalGroup(
             pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMenuLayout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(uno, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(dos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -349,19 +347,15 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(tres, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(cuatro, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlMenuLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cinco, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ocho, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addComponent(seis, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(siete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(ocho, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txtIDDENUNCIA))
+                .addGap(117, 117, 117))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -474,7 +468,8 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(pnlCentroLayout.createSequentialGroup()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -677,7 +672,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_ochoMousePressed
 
     private void ochoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ochoActionPerformed
-        new CambiaPanel(pnlPrincipal, new paneles.pnlWeb());
+        new CambiaPanel(pnlPrincipal, new paneles.pnlPenalizacion());
         if(this.ocho.isSelected()){
             this.uno.setColorNormal(new Color(239,238,244));
             this.uno.setColorHover(new Color(204,204,204));
@@ -997,7 +992,6 @@ public class Principal extends javax.swing.JFrame {
     private rsbuttom.RSButtonMetro seis;
     private rsbuttom.RSButtonMetro siete;
     private rsbuttom.RSButtonMetro tres;
-    public static javax.swing.JLabel txtIDDENUNCIA;
     private rsbuttom.RSButtonMetro uno;
     // End of variables declaration//GEN-END:variables
 }
