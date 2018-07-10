@@ -138,7 +138,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="cboCondicion1" min="-2" pref="168" max="-2" attributes="0"/>
+                              <Component id="cboTipoOperativo" min="-2" pref="168" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jLabel12" min="-2" pref="77" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -152,7 +152,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtMinutoHecho" min="-2" pref="70" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="txtIdDenuncia1" max="32767" attributes="0"/>
+                          <Component id="txtDireccion" max="32767" attributes="0"/>
                           <Component id="jScrollPane1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="37" max="32767" attributes="0"/>
@@ -165,7 +165,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="cboCondicion1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cboTipoOperativo" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
@@ -182,7 +182,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtIdDenuncia1" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtDireccion" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -207,7 +207,7 @@
                 <Property name="text" type="java.lang.String" value="Tipo Operativo :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="cboCondicion1">
+            <Component class="javax.swing.JComboBox" name="cboTipoOperativo">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="26">
@@ -398,7 +398,7 @@
                 <Property name="text" type="java.lang.String" value="Direcci&#xf3;n :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtIdDenuncia1">
+            <Component class="javax.swing.JTextField" name="txtDireccion">
               <Properties>
                 <Property name="opaque" type="boolean" value="false"/>
               </Properties>
@@ -425,7 +425,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTextArea" name="jTextArea1">
+                <Component class="javax.swing.JTextArea" name="txtDescripcion">
                   <Properties>
                     <Property name="columns" type="int" value="20"/>
                     <Property name="rows" type="int" value="5"/>

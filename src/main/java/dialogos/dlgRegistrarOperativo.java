@@ -17,11 +17,13 @@ import com.cpyt.entity.Municion;
 import com.cpyt.entity.Operativo;
 import com.cpyt.entity.Otro;
 import com.cpyt.entity.Persona;
+import com.cpyt.entity.PersonaDenuncia;
 import com.cpyt.entity.ServicioPolicial;
 import com.cpyt.entity.Usuario;
 import com.cpyt.entity.VehiculoIncautado;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import javax.swing.JOptionPane;
 import static principal.Principal.pnlPrincipal;
@@ -41,7 +43,7 @@ public class dlgRegistrarOperativo extends javax.swing.JDialog {
     public static List<Droga> drogasIncautadoList = new ArrayList<>();
     public static List<Municion> municionesIncautadoList = new ArrayList<>();
     public static List<Otro> otrosIncautadoList = new ArrayList<>();
-    public static List<Persona> personasList = new ArrayList<>();
+    public static List<PersonaDenuncia> personasDenunciaList = new ArrayList<>();
     
     public dlgRegistrarOperativo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -63,7 +65,7 @@ public class dlgRegistrarOperativo extends javax.swing.JDialog {
         btnCancelar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        cboCondicion1 = new javax.swing.JComboBox<>();
+        cboTipoOperativo = new javax.swing.JComboBox<>();
         txtFechaHecho = new com.toedter.calendar.JDateChooser();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -71,10 +73,10 @@ public class dlgRegistrarOperativo extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         txtMinutoHecho = new javax.swing.JComboBox<>();
         jLabel21 = new javax.swing.JLabel();
-        txtIdDenuncia1 = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtDescripcion = new javax.swing.JTextArea();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -114,8 +116,8 @@ public class dlgRegistrarOperativo extends javax.swing.JDialog {
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel15.setText("Tipo Operativo :");
 
-        cboCondicion1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--SELECCIONE--", "ALCOHOLEMIA", "BLOQUEO DE VIAS", "BLOQUEO Y SATURACION", "BANDAS JUVENILES (larva)", "CERCO", "CONTRABANDO", "CONTRASUBVERSIVO", "CONTROL DE IDENTIDAD", "CONFIANZA (seguridad ciudadana)", "ESCOLAR", "FORESTALES", "HOSTALES", "IMPACTO  POLICIAL  (tálamo)", "LUCERO  (martillo)", "MINERIA ILEGAL", "PANDILLAJE", "PASAJERO A BORDO", "PIROTECNICO", "PROSTITUCION", "RASTRILLO", "RETEN", "REQUISITORIA", "TID", "TRANSITO", "OTROS" }));
-        cboCondicion1.setOpaque(false);
+        cboTipoOperativo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--SELECCIONE--", "ALCOHOLEMIA", "BLOQUEO DE VIAS", "BLOQUEO Y SATURACION", "BANDAS JUVENILES (larva)", "CERCO", "CONTRABANDO", "CONTRASUBVERSIVO", "CONTROL DE IDENTIDAD", "CONFIANZA (seguridad ciudadana)", "ESCOLAR", "FORESTALES", "HOSTALES", "IMPACTO  POLICIAL  (tálamo)", "LUCERO  (martillo)", "MINERIA ILEGAL", "PANDILLAJE", "PASAJERO A BORDO", "PIROTECNICO", "PROSTITUCION", "RASTRILLO", "RETEN", "REQUISITORIA", "TID", "TRANSITO", "OTROS" }));
+        cboTipoOperativo.setOpaque(false);
 
         jLabel12.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(38, 86, 186));
@@ -140,16 +142,16 @@ public class dlgRegistrarOperativo extends javax.swing.JDialog {
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel21.setText("Dirección :");
 
-        txtIdDenuncia1.setOpaque(false);
+        txtDireccion.setOpaque(false);
 
         jLabel19.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(38, 86, 186));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel19.setText("Descripción :");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtDescripcion.setColumns(20);
+        txtDescripcion.setRows(5);
+        jScrollPane1.setViewportView(txtDescripcion);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -164,7 +166,7 @@ public class dlgRegistrarOperativo extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(cboCondicion1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cboTipoOperativo, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -177,7 +179,7 @@ public class dlgRegistrarOperativo extends javax.swing.JDialog {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtMinutoHecho, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtIdDenuncia1)
+                    .addComponent(txtDireccion)
                     .addComponent(jScrollPane1))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
@@ -187,7 +189,7 @@ public class dlgRegistrarOperativo extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cboCondicion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cboTipoOperativo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel12))
                     .addComponent(jLabel15)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -200,7 +202,7 @@ public class dlgRegistrarOperativo extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel21)
-                    .addComponent(txtIdDenuncia1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel19)
@@ -332,13 +334,85 @@ public class dlgRegistrarOperativo extends javax.swing.JDialog {
         GenericDAO generic = new GenericDAO();
         
         Operativo oe = new Operativo();
-        Persona per = new Persona();
         
+        oe.setTipoOpera(cboTipoOperativo.getSelectedItem().toString());
+        oe.setDireccion(txtDireccion.getText());
+        oe.setDescripcion(txtDescripcion.getText());
+        oe.setFechHecho(txtFechaHecho.getDate());
+        oe.setHoraHecho(txtHoraHecho.getSelectedItem().toString()+":"+txtMinutoHecho.getSelectedItem().toString());
+        oe.setFechRegis(new Date());
+        oe.setHoraRegis("05:00");
         
+        if(vehiculoIncautadoList.size()>0){
+            HashSet<VehiculoIncautado> hvi = new HashSet<VehiculoIncautado>();
+            VehiculoIncautado vi = new VehiculoIncautado();
+            for (int i = 0; i < vehiculoIncautadoList.size(); i++) {
+                vi = vehiculoIncautadoList.get(i);
+                hvi.add(vi);
+
+            }
+            oe.setVehiculoIncautadoList(hvi);
+        }
+        
+        if(armasIncautadoList.size()>0){
+            HashSet<ArmaIncautada> hai = new HashSet<ArmaIncautada>();
+            ArmaIncautada ai = new ArmaIncautada();
+            for (int i = 0; i < armasIncautadoList.size(); i++) {
+                ai = armasIncautadoList.get(i);
+                hai.add(ai);
+
+            }
+            oe.setArmaIncautadaList(hai);
+        }
+        
+        if(drogasIncautadoList.size()>0){
+            HashSet<Droga> hd = new HashSet<Droga>();
+            Droga d = new Droga();
+            for (int i = 0; i < drogasIncautadoList.size(); i++) {
+                d = drogasIncautadoList.get(i);
+                hd.add(d);
+
+            }
+            oe.setDrogaList(hd);
+        }
+        
+        if(municionesIncautadoList.size()>0){
+            HashSet<Municion> hm = new HashSet<Municion>();
+            Municion m = new Municion();
+            for (int i = 0; i < municionesIncautadoList.size(); i++) {
+                m = municionesIncautadoList.get(i);
+                hm.add(m);
+
+            }
+            oe.setMunicionList(hm);
+        }
+        
+        if(otrosIncautadoList.size()>0){
+            HashSet<Otro> ho = new HashSet<Otro>();
+            Otro o = new Otro();
+            for (int i = 0; i < otrosIncautadoList.size(); i++) {
+                o = otrosIncautadoList.get(i);
+                ho.add(o);
+
+            }
+            oe.setOtroList(ho);
+        }
+        
+        if(personasDenunciaList.size()>0){
+            HashSet<PersonaDenuncia> hpd = new HashSet<PersonaDenuncia>();
+            PersonaDenuncia pd = new PersonaDenuncia();
+            for (int i = 0; i < personasDenunciaList.size(); i++) {
+                pd = personasDenunciaList.get(i);
+                hpd.add(pd);
+
+            }
+            oe.setPersonaDenunciaList(hpd);
+        }
+       
         try {
             generic.insert(oe);
-            JOptionPane.showMessageDialog(rootPane, "Servicio Policial Grabado Exitosamente !");
-            new CambiaPanel(pnlPrincipal, new paneles.pnlServicioPolicial());
+            JOptionPane.showMessageDialog(rootPane, "Operativo Grabado Exitosamente !");
+            new CambiaPanel(pnlPrincipal, new paneles.pnlOperativo());
             this.dispose();
             
         } catch (Exception e) {
@@ -404,7 +478,7 @@ public class dlgRegistrarOperativo extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnRegistrar;
-    private javax.swing.JComboBox<String> cboCondicion1;
+    private javax.swing.JComboBox<String> cboTipoOperativo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -421,10 +495,10 @@ public class dlgRegistrarOperativo extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea txtDescripcion;
+    public static javax.swing.JTextField txtDireccion;
     private com.toedter.calendar.JDateChooser txtFechaHecho;
     private javax.swing.JComboBox<String> txtHoraHecho;
-    public static javax.swing.JTextField txtIdDenuncia1;
     private javax.swing.JComboBox<String> txtMinutoHecho;
     // End of variables declaration//GEN-END:variables
     
