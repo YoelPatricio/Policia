@@ -18,6 +18,7 @@ import com.cpyt.entity.SubtipoDelito;
 import com.cpyt.entity.TipoDelito;
 import com.cpyt.entity.Usuario;
 import dialogos.dlgRegistrarPersona;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
@@ -227,6 +228,14 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         txtDNI.setOpaque(false);
+        txtDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDNIKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDNIKeyTyped(evt);
+            }
+        });
 
         txtNombreApellidos.setEditable(false);
         txtNombreApellidos.setOpaque(false);
@@ -741,6 +750,32 @@ public class pnlRegistrarDenuncia extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_btnGrabarDenunciaActionPerformed
+
+    private void txtDNIKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDNIKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            if(txtDNI.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(cboEstado, "Ingrese el DNI para buscar !");
+            return;
+        }
+        
+        DenunciaDAO d = new DenunciaDAO();
+        Persona persona = d.consultarPersona(txtDNI.getText());
+        if(persona == null){
+            JOptionPane.showMessageDialog(null, "No encontrado, tiene que registrar a la persona !");
+            dlgRegistrarPersona rp = new dlgRegistrarPersona(null, true);
+            rp.setVisible(true);
+    
+        }else{
+            txtIdPersona.setText(persona.getIdPerso().toString());
+            txtDNI.setText(persona.getDni());
+            txtNombreApellidos.setText(persona.getApelNomb());            
+        }
+        }
+    }//GEN-LAST:event_txtDNIKeyPressed
+
+    private void txtDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDNIKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDNIKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

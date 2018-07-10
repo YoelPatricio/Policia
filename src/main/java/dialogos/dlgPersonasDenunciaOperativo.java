@@ -14,6 +14,7 @@ import com.cpyt.entity.Persona;
 import com.cpyt.entity.PersonaDenuncia;
 import com.cpyt.entity.Vehiculo;
 import com.cpyt.entity.VehiculoIncautado;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -33,7 +34,7 @@ public class dlgPersonasDenunciaOperativo extends javax.swing.JDialog {
      */
     DefaultTableModel dtm;
     String abc = "Hola mundo";
-    
+    DenunciaDAO d = new DenunciaDAO();
     public static List<PersonaDenuncia> personaDenunciaList = new ArrayList<>();
     public dlgPersonasDenunciaOperativo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -118,6 +119,12 @@ public class dlgPersonasDenunciaOperativo extends javax.swing.JDialog {
         jLabel14.setForeground(new java.awt.Color(38, 86, 186));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setText("DNI :");
+
+        txtDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDNIKeyPressed(evt);
+            }
+        });
 
         jLabel15.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(38, 86, 186));
@@ -255,7 +262,7 @@ public class dlgPersonasDenunciaOperativo extends javax.swing.JDialog {
             return;
         }
 
-        DenunciaDAO d = new DenunciaDAO();
+        
         Persona persona = d.consultarPersona(txtDNI.getText());
         if(persona == null){
             JOptionPane.showMessageDialog(null, "No encontrado, tiene que registrar a la persona !");
@@ -268,6 +275,28 @@ public class dlgPersonasDenunciaOperativo extends javax.swing.JDialog {
             txtApellidosNombresss.setText(persona.getApelNomb());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtDNIKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDNIKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+           if(txtDNI.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null, "Ingrese el DNI para buscar !");
+            return;
+        }
+
+        
+        Persona persona = d.consultarPersona(txtDNI.getText());
+        if(persona == null){
+            JOptionPane.showMessageDialog(null, "No encontrado, tiene que registrar a la persona !");
+            dlgRegistrarPersona rp = new dlgRegistrarPersona(null, true);
+            rp.setVisible(true);
+
+        }else{
+            txtIdPer.setText(persona.getIdPerso().toString());
+            txtDNI.setText(persona.getDni());
+            txtApellidosNombresss.setText(persona.getApelNomb());
+        }
+        }
+    }//GEN-LAST:event_txtDNIKeyPressed
 
     /**
      * @param args the command line arguments

@@ -6,11 +6,7 @@
 package paneles;
 
 import com.cpyt.dao.DenunciaDAO;
-import com.cpyt.entity.Denuncia;
-import dialogos.dfdfdf;
-import dialogos.dlgVerDetalleDenuncia;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import principal.Principal;
 
